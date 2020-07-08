@@ -2,6 +2,7 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include "Renderer/OpenGL/shader.h"
+#include "Window/Event/eventCallback.h"
 
 void error_callback(int code, const char* description) {
 	CORE_ERROR("code: ", code, "\n", description);
@@ -40,6 +41,10 @@ int main() {
 	glCullFace(GL_BACK);
 	glClearColor(0.0, 1.0, 0.0, 1.0);
 	glViewport(0, 0, width, height);
+
+	GLFWHook hook;
+	glfwSetWindowUserPointer(window, &hook);
+	setWindowEventsCallback(window);
 
 	unsigned int stride = 5*sizeof(float);
 	float vertices[4*5] = {
@@ -83,6 +88,7 @@ int main() {
 		glfwSwapBuffers(window);
 	}
 	
+	delete shader;
 	LOG::terminate();
 	exit(EXIT_SUCCESS);
 }

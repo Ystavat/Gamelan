@@ -1,5 +1,5 @@
-LIBS = -lGL -lGLU -lglfw3 -lGLEW -lX11 -lXxf86vm -lXrandr -lpthread -lXi -ldl -lXinerama -lXcursor -lz
-GPP = g++ -std=c++11 -Wall -I $(srcdir) #-I Dependencies/GLEW/include/ -I Dependencies/GLFW/include/
+LIBS = -lGL -lglfw3 -lGLEW -lX11 -lpthread -ldl
+GPP = g++ -std=c++11 -Wall -I $(srcdir)
 GOO = $(GPP) -c
 
 RM = rm -irf
@@ -18,10 +18,13 @@ all = $(PROG)
 $(PROG) : $(OBJ)
 	$(GPP) $(OBJ) -o $@ $(LIBS)
 
-$(bindir)%.o : $(srcdir)%.cpp $(SUP)
+$(bindir)%.o : $(srcdir)%.cpp $(srcdir)%.h $(SUP)
 	mkdir -p $(dir $@)
+	$(GOO) $(word 1, $^) -o $@
+$(bindir)main.o : $(srcdir)main.cpp $(SUP)
 	$(GOO) $(word 1, $^) -o $@
 
 .PHONY : clean
 clean :
 	$(RM) $(bindir)*
+	$(RM) $(PROG)
