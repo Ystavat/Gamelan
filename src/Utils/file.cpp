@@ -1,5 +1,6 @@
 #include "file.h"
 
+
 const char* readFile(const char* name) {
 	int size;
 	char* content;

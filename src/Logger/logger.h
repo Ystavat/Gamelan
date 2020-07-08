@@ -1,13 +1,13 @@
 #ifndef __LOGGER_H__
 #define __LOGGER_H__
 
-#include "core.h"
 #include <iostream>
 #include <string>
 
 #define COLOR(x) "\033[38;5;" << x << "m"
 #define BOLD "\033[1m"
 #define END "\033[0m"
+
 
 enum Color {
 	black = 0,
@@ -40,7 +40,6 @@ class Logger {
 
 	public:
 		Logger(const char* name, LogLevel level = trace, bool bold = false);
-
 		~Logger();
 
 		void header(LogLevel level, const char* file, int line);
@@ -73,11 +72,10 @@ class LOG {
 
 	public:
 		static void init();
+		static void terminate();
 
 		static Logger* getCoreLogger();
 		static Logger* getAppLogger();
-
-		static void terminate();
 };
 
 

@@ -1,5 +1,6 @@
 #include "shader.h"
 
+
 Shader::Shader(const char* vertexShader, const char* fragmentShader) {
 	unsigned int program = glCreateProgram();
 	unsigned int vs = Shader::compile(GL_VERTEX_SHADER, vertexShader);

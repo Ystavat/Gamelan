@@ -3,14 +3,15 @@
 
 #include "core.h"
 #include <GL/glew.h>
-#include "utils/file.h"
+#include "Utils/file.h"
+
 
 class Shader {
 	private:
 		unsigned int m_id;
+
 	public:
 		Shader(const char* vertexShader, const char* fragmentShader);
-
 		~Shader();
 
 		static Shader* fromFile(const char* vertexFile, const char* fragmentFile);
