@@ -4,14 +4,16 @@
 #include "Renderer/OpenGL/shader.h"
 #include "Window/Event/eventCallback.h"
 
+
 void error_callback(int code, const char* description) {
 	CORE_ERROR("code: ", code, "\n", description);
 }
 
 int main() {
-	LOG::init();
-	CORE_LOGGER->setPrompt("[%f(%l)]%N: ");
-	APP_LOGGER->setPrompt("[%f(%l)]%N: ");
+	LOG_INIT();
+	CORE_LOGGER(setPrompt("[%f(%l)]%N: "));
+	APP_LOGGER(setPrompt("[%f(%l)]%N: "));
+	PROFILE_SESSION();
 
 	if (!glfwInit()) {
 		exit(EXIT_FAILURE);
@@ -70,15 +72,12 @@ int main() {
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, 6*sizeof(unsigned int), indices, GL_STATIC_DRAW);
 
-	APP_DEBUG(vbo, ' ', abo, ' ', ibo);
-
 	glEnableVertexAttribArray(0);
 	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, stride, (const void*)(uintptr_t)0);
 	glEnableVertexAttribArray(1);
 	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, stride, (const void*)(uintptr_t)(2*sizeof(float)));
 
 	Shader* shader = Shader::fromFile("Assets/Shaders/basicVS.shader", "Assets/Shaders/basicFS.shader");
-
 	shader->bind();
 
 	while(!glfwWindowShouldClose(window)) {
@@ -89,6 +88,6 @@ int main() {
 	}
 	
 	delete shader;
-	LOG::terminate();
+	LOG_TERMINATE();
 	exit(EXIT_SUCCESS);
 }
