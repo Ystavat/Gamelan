@@ -30,9 +30,17 @@ namespace Benchmark {
 
 			Writer(): m_state(Out) {}
 			~Writer() {
-				if (m_state != Out) {
-					endSession();
-				}
+				endSession();
+			}
+
+			void writeHeader() {
+				m_outputStream << "{\"otherData\":{},\"traceEvents\":[";
+				FLUSH(m_outputStream);
+			}
+
+			void writeFooter() {
+				m_outputStream << "]}";
+				FLUSH(m_outputStream);
 			}
 
 		public:
@@ -42,6 +50,7 @@ namespace Benchmark {
 			}
 
 			void beginSession(const std::string& filePath = "results.json") {
+				endSession();
 				m_outputStream.open(filePath);
 				m_state = Start;
 				writeHeader();
@@ -55,20 +64,6 @@ namespace Benchmark {
 				m_state = Out;
 			}
 
-			void writeHeader() {
-				if (m_state == Out) return;
-
-				m_outputStream << "{\"otherData\":{},\"traceEvents\":[";
-				FLUSH(m_outputStream);
-			}
-
-			void writeFooter() {
-				if (m_state == Out) return;
-
-				m_outputStream << "]}";
-				FLUSH(m_outputStream);
-			}
-
 			void writeEntry(const Entry& entry) {
 				if (m_state == Out) return;
 
@@ -77,6 +72,7 @@ namespace Benchmark {
 				} else {
 					m_outputStream << ",";
 				}
+
 				m_outputStream << "{"
 				<< "\"cat\":\"function\","
 				<< "\"dur\":" << entry.stop-entry.start << ","
