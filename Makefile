@@ -22,6 +22,7 @@ $(bindir)%.o : $(srcdir)%.cpp $(srcdir)%.h $(SUP)
 	mkdir -p $(dir $@)
 	$(GOO) $(word 1, $^) -o $@
 $(bindir)main.o : $(srcdir)main.cpp $(SUP)
+	mkdir -p $(dir $@)
 	$(GOO) $(word 1, $^) -o $@
 
 .PHONY : clean

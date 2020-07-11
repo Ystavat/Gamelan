@@ -38,11 +38,11 @@ typedef uint16_t ChunkId;
 	#define APP_ERROR(...)  LOG::getAppLogger()->log(error, __FILE__, __LINE__, __VA_ARGS__)
 	#define APP_CRITIC(...) LOG::getAppLogger()->log(critical, __FILE__, __LINE__, __VA_ARGS__)
 
-	#define CORE_ASSERT(x, ...) { if (!(x)) { CORE_CRITIC("Assertion Failed: " __VA_ARGS__); exit(EXIT_FAILURE); }
-	#define CORE_ASSERT_NOT(x, ...) { if (x) { CORE_CRITIC("Assertion Failed: " __VA_ARGS__); exit(EXIT_FAILURE); }
+	#define CORE_ASSERT(x, ...) if (!(x)) { CORE_CRITIC("Assertion Failed: " __VA_ARGS__); exit(EXIT_FAILURE); }
+	#define CORE_ASSERT_NOT(x, ...) if (x) { CORE_CRITIC("Assertion Failed: " __VA_ARGS__); exit(EXIT_FAILURE); }
 
-	#define APP_ASSERT(x, ...) { if (!(x)) { APP_CRITIC("Assertion Failed: " __VA_ARGS__); exit(EXIT_FAILURE); }
-	#define APP_ASSERT_NOT(x, ...) { if (x) { APP_CRITIC("Assertion Failed: " __VA_ARGS__); exit(EXIT_FAILURE); }
+	#define APP_ASSERT(x, ...) if (!(x)) { APP_CRITIC("Assertion Failed: " __VA_ARGS__); exit(EXIT_FAILURE); }
+	#define APP_ASSERT_NOT(x, ...) if (x) { APP_CRITIC("Assertion Failed: " __VA_ARGS__); exit(EXIT_FAILURE); }
 #else
 	#define LOG_INIT()
 	#define LOG_TERMINATE()
