@@ -1,6 +1,7 @@
 #include "core.h"
 #include "Renderer/OpenGL/shader.h"
 #include "Window/window.h"
+#include "Math/vector.h"
 
 
 int main() {
