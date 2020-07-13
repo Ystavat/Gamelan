@@ -1,4 +1,4 @@
-#include "RenderingContext.h"
+#include "renderingContext.h"
 
 
 RenderingContext::RenderingContext(GLFWwindow* windowHandle): m_windowHandle(windowHandle) {

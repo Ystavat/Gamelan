@@ -1,4 +1,4 @@
-LIBS = -lGL -lglfw3 -lGLEW -lX11 -lpthread -ldl
+LIBS = -lGL -lglfw3 -lGLEW -lX11 -lpthread -ldl -lz
 GPP = g++ -std=c++11 -Wall -I $(srcdir)
 GOO = $(GPP) -c
 

@@ -2,7 +2,7 @@
 #define __WINDOW_H__
 
 #include "core.h"
-#include "Renderer/OpenGL/RenderingContext.h"
+#include "Renderer/OpenGL/renderingContext.h"
 #include "Event/eventCallback.h"
 
 
