@@ -25,14 +25,14 @@ class WindowCloseEvent: public Event {
 
 class WindowResizeEvent: public Event {
 	private:
-		unsigned int m_width;
-		unsigned int m_height;
+		uint32_t m_width;
+		uint32_t m_height;
 	public:
-		WindowResizeEvent(unsigned int width, unsigned int height);
+		WindowResizeEvent(uint32_t width, uint32_t height);
 		virtual EventType getType();
 		static EventType getStaticType();
-		unsigned int getWidth();
-		unsigned int getHeight();
+		uint32_t getWidth();
+		uint32_t getHeight();
 };
 
 class WindowFocusEvent: public Event {
@@ -69,12 +69,12 @@ class KeyEvent: public Event {
 
 class KeyPressEvent: public KeyEvent {
 	private:
-		unsigned int m_repeatCount;
+		bool m_repeat;
 	public:
-		KeyPressEvent(int keyCode, unsigned int repeatCount);
+		KeyPressEvent(int keyCode, bool repeat);
 		virtual EventType getType();
 		static EventType getStaticType();
-		unsigned int getRepeatCount();
+		bool isRepeated();
 };
 
 class KeyReleaseEvent: public KeyEvent {

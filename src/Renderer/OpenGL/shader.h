@@ -8,7 +8,7 @@
 
 class Shader {
 	private:
-		unsigned int m_id;
+		uint32_t m_id;
 
 	public:
 		Shader(const char* vertexShader, const char* fragmentShader);
@@ -16,9 +16,9 @@ class Shader {
 
 		static Shader* fromFile(const char* vertexFile, const char* fragmentFile);
 
-		static unsigned int compile(unsigned int type, const char* source);
+		static uint32_t compile(uint32_t type, const char* source);
 
-		unsigned int getId();
+		uint32_t getId();
 
 		void bind();
 };

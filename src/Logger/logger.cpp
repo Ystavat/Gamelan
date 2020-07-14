@@ -1,6 +1,8 @@
 #include "logger.h"
 
 
+std::ostream& operator<<(std::ostream& out, uint8_t uint) { return out << (uint & 255); }
+
 Logger::Logger(const char* name, LogLevel level, bool bold): m_name(name), m_level(level), m_bold(bold) {
 	m_prompt = "%N: ";
 	log(trace, "SYSTEM", 0, "Initialised");

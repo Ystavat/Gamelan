@@ -2,9 +2,9 @@
 
 
 Shader::Shader(const char* vertexShader, const char* fragmentShader) {
-	unsigned int program = glCreateProgram();
-	unsigned int vs = Shader::compile(GL_VERTEX_SHADER, vertexShader);
-	unsigned int fs = Shader::compile(GL_FRAGMENT_SHADER, fragmentShader);
+	uint32_t program = glCreateProgram();
+	uint32_t vs = Shader::compile(GL_VERTEX_SHADER, vertexShader);
+	uint32_t fs = Shader::compile(GL_FRAGMENT_SHADER, fragmentShader);
 	glAttachShader(program, vs);
 	glAttachShader(program, fs);
 	glLinkProgram(program);
@@ -25,8 +25,8 @@ Shader* Shader::fromFile(const char* vertexFile, const char* fragmentFile) {
 	return shader;
 }
 
-unsigned int Shader::compile(unsigned int type, const char* source) {
-	unsigned int shader = glCreateShader(type);
+uint32_t Shader::compile(uint32_t type, const char* source) {
+	uint32_t shader = glCreateShader(type);
 	glShaderSource(shader, 1, &source, nullptr);
 	glCompileShader(shader);
 	int result;
@@ -43,6 +43,6 @@ unsigned int Shader::compile(unsigned int type, const char* source) {
 	return shader;
 }
 
-unsigned int Shader::getId() { return m_id; }
+uint32_t Shader::getId() { return m_id; }
 
 void Shader::bind() { glUseProgram(m_id); }

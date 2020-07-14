@@ -4,11 +4,11 @@
 EventType WindowCloseEvent::getType() { return WindowClose; }
 EventType WindowCloseEvent::getStaticType() { return WindowClose; }
 
-WindowResizeEvent::WindowResizeEvent(unsigned int width, unsigned int height): m_width(width), m_height(height) {}
+WindowResizeEvent::WindowResizeEvent(uint32_t width, uint32_t height): m_width(width), m_height(height) {}
 EventType WindowResizeEvent::getType() { return WindowResize; }
 EventType WindowResizeEvent::getStaticType() { return WindowResize; }
-unsigned int WindowResizeEvent::getWidth() { return m_width; }
-unsigned int WindowResizeEvent::getHeight() { return m_height; }
+uint32_t WindowResizeEvent::getWidth() { return m_width; }
+uint32_t WindowResizeEvent::getHeight() { return m_height; }
 
 EventType WindowFocusEvent::getType() { return WindowFocus; }
 EventType WindowFocusEvent::getStaticType() { return WindowFocus; }
@@ -25,10 +25,10 @@ int WindowMoveEvent::getY() { return m_y; }
 KeyEvent::KeyEvent(int keyCode): m_keyCode(keyCode) {}
 int KeyEvent::getKeyCode() { return m_keyCode; }
 
-KeyPressEvent::KeyPressEvent(int keyCode, unsigned int repeatCount): KeyEvent(keyCode), m_repeatCount(repeatCount) {}
+KeyPressEvent::KeyPressEvent(int keyCode, bool repeat): KeyEvent(keyCode), m_repeat(repeat) {}
 EventType KeyPressEvent::getType() { return KeyPress; }
 EventType KeyPressEvent::getStaticType() { return KeyPress; }
-unsigned int KeyPressEvent::getRepeatCount() { return m_repeatCount; }
+bool KeyPressEvent::isRepeated() { return m_repeat; }
 
 KeyReleaseEvent::KeyReleaseEvent(int keyCode): KeyEvent(keyCode) {}
 EventType KeyReleaseEvent::getType() { return KeyRelease; }

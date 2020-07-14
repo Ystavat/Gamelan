@@ -84,7 +84,7 @@ uint8_t* readPNG(const char* name, uint32_t* pwidth, uint32_t* pheight, uint8_t*
 			*pchannels = pad;
 		}
 		image = new uint8_t[width*height*channels];
-		memset(image, 0, width*height*channels);
+		memset(image, 255, width*height*channels);
 
 		PNGChunk::move(file);
 		while (!file.eof()) {
@@ -96,7 +96,7 @@ uint8_t* readPNG(const char* name, uint32_t* pwidth, uint32_t* pheight, uint8_t*
 				file.read((char*)content, c.m_length);
 				autoInflate(&content, &c.m_length);
 				position = 0;
-				for (unsigned int y = 0 ; y < height ; y++) {
+				for (uint32_t y = 0 ; y < height ; y++) {
 					type = content[position++];
 					for (uint32_t x = 0 ; x < width ; x++) {
 						for (uint32_t z = 0 ; z < pad ; z++) {

@@ -12,11 +12,10 @@
 #include "config.h"
 #include "Logger/logger.h"
 
+
 #define S_BIND(x) std::bind(&x, std::placeholders::_1)
 #define M_BIND(x) std::bind(&x, this, std::placeholders::_1)
 #define BIND(x, y) std::bind(&x, &y, std::placeholders::_1)
-typedef uint8_t Block;
-typedef uint16_t ChunkId;
 
 #ifdef DEBUG_MOD
 	#define LOG_INIT()       LOG::init()

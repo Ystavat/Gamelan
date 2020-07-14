@@ -31,12 +31,12 @@ void setWindowEventsCallback(GLFWwindow* window) {
 		GET_HOOK;
 		switch (action) {
 			case GLFW_PRESS: {
-				KeyPressEvent event(key, 0);
+				KeyPressEvent event(key, false);
 				hook.callback(event);
 				break;
 			}
 			case GLFW_REPEAT: {
-				KeyPressEvent event(key, 1);
+				KeyPressEvent event(key, true);
 				hook.callback(event);
 				break;
 			}

@@ -18,9 +18,7 @@ class Texture {
 
 	public:
 		Texture(const char* name, uint8_t channels = 0);
-
 		Texture(uint8_t* pixels, uint32_t width, uint32_t height, uint8_t channels = 4);
-
 		~Texture();
 
 		static Texture* createBlank(uint8_t channels = 4);

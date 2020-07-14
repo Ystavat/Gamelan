@@ -9,6 +9,8 @@
 #define END "\033[0m"
 
 
+std::ostream& operator<<(std::ostream& out, uint8_t uint);
+
 enum Color {
 	black = 0,
 	red = 1,
@@ -45,7 +47,7 @@ class Logger {
 		void header(LogLevel level, const char* file, int line);
 
 		template<typename... T>
-		void log(LogLevel level, const char* file, int line, T... param) {
+		void log(LogLevel level, const char* file, int line, T&&... param) {
 			if (level >= m_level) {
 				header(level, file, line);
 				int a[] = {(std::cerr << param,0)...};
