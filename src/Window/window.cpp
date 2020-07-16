@@ -1,6 +1,5 @@
 #include "window.h"
 
-
 void Window::error_callback(int code, const char* description) {
 	CORE_ERROR("code: ", code, "\n", description);
 }
@@ -20,6 +19,7 @@ Window::Window(uint32_t width, uint32_t height, const char* title, bool vsync): 
 	glfwSetWindowUserPointer(m_window, &m_hook);
 	setWindowEventsCallback(m_window);
 }
+
 Window::~Window() {
 	glfwTerminate();
 }
@@ -27,10 +27,12 @@ Window::~Window() {
 void Window::clear() {
 	m_context->clear();
 }
+
 void Window::onUpdate() {
 	m_context->SwapBuffers();
 	glfwPollEvents();
 }
+
 bool Window::shouldClose() {
 	return glfwWindowShouldClose(m_window);
 }

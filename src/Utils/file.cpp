@@ -74,7 +74,9 @@ uint8_t* readPNG(const char* name, uint32_t* pwidth, uint32_t* pheight, uint8_t*
 		width = PNGChunk::getLong(file);
 		height = PNGChunk::getLong(file);
 		char flags[5];
+		size_t curPos = file.tellg();
 		file.read(flags, 5);
+		file.seekg(curPos + 5, std::ios::beg);
 		if ((flags[1] != 2 && flags[1] != 6) || flags[2] || flags[3] || flags[4]) {
 			CORE_CRITIC("Unsupported format \"", name, "\"");
 		}

@@ -6,6 +6,7 @@
 
 
 int main() {
+
 	LOG_INIT();
 	CORE_LOGGER(setPrompt("[%f(%l)]%N: "));
 	APP_LOGGER(setPrompt("[%f(%l)]%N: "));
