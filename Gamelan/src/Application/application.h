@@ -16,7 +16,6 @@ class Application {
 		void Run();
 
 		virtual void onUpdate() = 0;
-
 		virtual void onEvent(Event& event) = 0;
 };
 
