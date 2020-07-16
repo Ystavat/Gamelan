@@ -18,6 +18,7 @@ Shader::~Shader() { glDeleteProgram(m_id); }
 
 Shader* Shader::fromFile(const char* vertexFile, const char* fragmentFile) {
 	const char* vertexShader = readFile(vertexFile);
+	CORE_WARN(vertexShader);
 	const char* fragmentShader = readFile(fragmentFile);
 	Shader* shader = new Shader(vertexShader, fragmentShader);
 	delete[] vertexShader;

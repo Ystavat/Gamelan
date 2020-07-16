@@ -10,6 +10,7 @@
 extern Application* createApplication();
 
 int main(int argc, char** argv) {
+
 	LOG_INIT();
 	CORE_LOGGER(setPrompt("[%f(%l)]%N: "));
 	APP_LOGGER(setPrompt("[%f(%l)]%N: "));
@@ -26,6 +27,5 @@ int main(int argc, char** argv) {
 	LOG_TERMINATE();
 	exit(EXIT_SUCCESS);
 }
-
 
 #endif

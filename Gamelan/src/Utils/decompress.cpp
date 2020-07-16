@@ -109,17 +109,13 @@ bool autoInflate(uint8_t** buffer_, uint32_t* size_) {
 
 PNGChunk::PNGChunk(std::ifstream& file) {
 	m_length = getLong(file);
-	size_t curPos = file.tellg();
 	file.read(m_type, 4);
-	file.seekg(curPos + 4, std::ios::beg);
 	m_type[4] = '\0';
 }
 
 uint32_t PNGChunk::getLong(std::ifstream& file) {
 	char chunk[4];
-	size_t curPos = file.tellg();
 	file.read(chunk, 4);
-	file.seekg(curPos + 4, std::ios::beg);
 	return ((uint8_t)chunk[0] << 24)
 		| ((uint8_t)chunk[1] << 16)
 		| ((uint8_t)chunk[2] << 8)
