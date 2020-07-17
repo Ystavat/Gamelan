@@ -10,7 +10,6 @@
 #define DO_IF_42(x)
 #define DO_IF_43(x)
 #define DO_IF_44(x) x
-#define COMMA ,
 
 #define SELF_OP_VEC(n, op) _SELF_OP_VEC(Vector ## n, n, op)
 #define _SELF_OP_VEC(type, n, op)\
@@ -99,12 +98,13 @@ struct Vector2 {
 	Vector2(T _x, T _y): x(_x), y(_y) {}
 	
 	ALL_SELF_OP_VEC(2);
-
-	SWIZZLE_2_2
-	SWIZZLE_2_3
+	ALL_SWIZZLE(2);
 };
 ALL_UNARY_OP_VEC(2);
 ALL_BINARY_OP_VEC(2);
+template<typename T>
+std::ostream& operator<<(std::ostream& out, Vector2<T>& v) { return out << "{ " << v.x << ", " << v.y << " }"; }
+
 
 template<typename T>
 struct Vector3 {
@@ -118,16 +118,35 @@ struct Vector3 {
 	Vector3(T _x, T _y, T _z): x(_x), y(_y), z(_z) {}
 	
 	ALL_SELF_OP_VEC(3);
-
-	SWIZZLE_3_2
-	SWIZZLE_3_3
+	ALL_SWIZZLE(3);
 };
 ALL_UNARY_OP_VEC(3);
 ALL_BINARY_OP_VEC(3);
+template<typename T>
+std::ostream& operator<<(std::ostream& out, Vector3<T>& v) { return out << "{ " << v.x << ", " << v.y << ", " << v.z << " }"; }
 
+template<typename T>
+struct Vector4 {
+	union {
+		struct { T x, y, z, w; };
+		struct { T s, t, p, q; };
+		struct { T r, g, b, a; };
+	};
+
+	Vector4(T scalar): x(scalar), y(scalar), z(scalar), w(scalar) {}
+	Vector4(T _x, T _y, T _z, T _w): x(_x), y(_y), z(_z), w(_w) {}
+	
+	ALL_SELF_OP_VEC(4);
+	ALL_SWIZZLE(4);
+};
+ALL_UNARY_OP_VEC(4);
+ALL_BINARY_OP_VEC(4);
+template<typename T>
+std::ostream& operator<<(std::ostream& out, Vector4<T>& v) { return out << "{ " << v.x << ", " << v.y << ", " << v.z << ", " << v.w << " }"; }
 
 typedef Vector2<float> vec2;
 typedef Vector3<float> vec3;
+typedef Vector4<float> vec4;
 
 
 #endif
