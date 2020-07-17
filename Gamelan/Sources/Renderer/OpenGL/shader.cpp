@@ -46,3 +46,12 @@ uint32_t Shader::compile(uint32_t type, const char* source) {
 uint32_t Shader::getId() { return m_id; }
 
 void Shader::bind() { glUseProgram(m_id); }
+
+GLint Shader::getLocation(const char* name) { return glGetUniformLocation(m_id, name); }
+
+void Shader::set(const char* name, int value) { glUniform1i(getLocation(name), value); }
+void Shader::set(const char* name, int* value, uint32_t count) { glUniform1iv(getLocation(name), count, value); }
+void Shader::set(const char* name, float value) { glUniform1f(getLocation(name), value); }
+void Shader::set(const char* name, vec2& value) { glUniform2f(getLocation(name), value.x, value.y); }
+void Shader::set(const char* name, vec3& value) { glUniform3f(getLocation(name), value.x, value.y, value.z); }
+void Shader::set(const char* name, vec4& value) { glUniform4f(getLocation(name), value.x, value.y, value.z, value.w); }
