@@ -7,6 +7,8 @@ class Sandbox : public Application {
 
 	public:
 		Sandbox(): Application(800, 600, "Sandbox") {
+			PROFILE_FUNCTION();
+
 			RenderingContext::setClearColor(0.0, 1.0, 0.0, 1.0);
 
 			texture = new Texture("../Assets/Images/img.png", 4);
@@ -45,10 +47,12 @@ class Sandbox : public Application {
 		}
 
 		virtual void onEvent(Event& event) override {
-			CORE_TRACE(event.getType());
+			APP_TRACE(event.getType());
 		}
 
-		virtual void onUpdate() override {
+		virtual void onUpdate(float deltaTime) override {
+			PROFILE_FUNCTION();
+
 			shader->bind();
 			RenderingContext::drawIndexed(6);
 		}

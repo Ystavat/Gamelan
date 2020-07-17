@@ -2,6 +2,8 @@
 
 
 RenderingContext::RenderingContext(GLFWwindow* windowHandle): m_windowHandle(windowHandle) {
+	PROFILE_FUNCTION();
+
 	glfwMakeContextCurrent(m_windowHandle);
 	CORE_ASSERT(glewInit()==GLEW_OK, "Glew failed to initialize")
 
