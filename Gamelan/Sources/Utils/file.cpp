@@ -5,7 +5,8 @@ const char* readFile(const char* name) {
 	int size;
 	char* content;
 
-	std::ifstream file(name);
+	std::ifstream file;
+	file.open(name, std::ios_base::in | std::ios_base::binary);
 	if (file.is_open()) {
 		file.seekg(0, std::ios::end);
 		size = file.tellg();
@@ -24,7 +25,8 @@ const char* readFile(const char* name) {
 const char* readFile(const char* name, int* size) {
 	char* content;
 
-	std::ifstream file(name);
+	std::ifstream file;
+	file.open(name, std::ios_base::in | std::ios_base::binary);
 	if (file.is_open()) {
 		file.seekg(0, std::ios::end);
 		*size = file.tellg();
@@ -62,7 +64,8 @@ uint8_t* readPNG(const char* name, uint32_t* pwidth, uint32_t* pheight, uint8_t*
 	uint8_t* content;
 	uint8_t* image;
 
-	std::ifstream file(name);
+	std::ifstream file;
+	file.open(name, std::ios_base::in | std::ios_base::binary);
 	if (file.is_open()) {
 		file.seekg(skipHeader);
 		PNGChunk ihdr(file);
@@ -74,9 +77,7 @@ uint8_t* readPNG(const char* name, uint32_t* pwidth, uint32_t* pheight, uint8_t*
 		width = PNGChunk::getLong(file);
 		height = PNGChunk::getLong(file);
 		char flags[5];
-		size_t curPos = file.tellg();
 		file.read(flags, 5);
-		file.seekg(curPos + 5, std::ios::beg);
 		if ((flags[1] != 2 && flags[1] != 6) || flags[2] || flags[3] || flags[4]) {
 			CORE_CRITIC("Unsupported format \"", name, "\"");
 		}

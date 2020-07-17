@@ -6,7 +6,7 @@ RM = rm -irf
 
 cordir = Gamelan/
 appdir = Sandbox/
-srcdir = src/
+srcdir = Sources/
 bindir = bin/
 srcCor = $(cordir)$(srcdir)
 srcApp = $(appdir)$(srcdir)
@@ -18,7 +18,7 @@ HEAD := $(wildcard $(srcdir)*.h)   $(wildcard $(srcdir)*/*.h)   $(wildcard $(src
 OBJ  := $(subst $(srcCor), $(bindir), $(subst $(srcApp), $(bindir), $(SRC:.cpp=.o)))
 SUP  := $(srcCor)config.h $(srcCor)core.h $(srcCor)gamelan.h
 
-PROG = Prog
+PROG = $(appdir)Prog
 all = $(PROG)
 
 $(PROG) : $(OBJ)

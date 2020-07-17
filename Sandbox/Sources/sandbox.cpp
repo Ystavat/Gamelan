@@ -1,6 +1,5 @@
 #include "gamelan.h"
 
-
 class Sandbox : public Application {
 	private:
 		Texture* texture;
@@ -10,7 +9,7 @@ class Sandbox : public Application {
 		Sandbox(): Application(800, 600, "Sandbox") {
 			RenderingContext::setClearColor(0.0, 1.0, 0.0, 1.0);
 
-			texture = new Texture("Assets/Images/img.png", 4);
+			texture = new Texture("../Assets/Images/img.png", 4);
 			texture->print();
 
 			float vertices[4*4] = {
@@ -38,7 +37,7 @@ class Sandbox : public Application {
 
 			layout.bind();
 
-			shader = Shader::fromFile("Assets/Shaders/texVS.shader", "Assets/Shaders/texFS.shader");
+			shader = Shader::fromFile("../Assets/Shaders/texVS.shader", "../Assets/Shaders/texFS.shader");
 		}
 		~Sandbox() {
 			delete texture;
@@ -54,4 +53,5 @@ class Sandbox : public Application {
 			RenderingContext::drawIndexed(6);
 		}
 };
+
 GAMELAN_USE(Sandbox);
