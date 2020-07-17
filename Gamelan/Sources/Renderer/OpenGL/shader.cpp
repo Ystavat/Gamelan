@@ -55,3 +55,6 @@ void Shader::set(const char* name, float value) { glUniform1f(getLocation(name),
 void Shader::set(const char* name, vec2& value) { glUniform2f(getLocation(name), value.x, value.y); }
 void Shader::set(const char* name, vec3& value) { glUniform3f(getLocation(name), value.x, value.y, value.z); }
 void Shader::set(const char* name, vec4& value) { glUniform4f(getLocation(name), value.x, value.y, value.z, value.w); }
+void Shader::set(const char* name, mat2& value) { glUniformMatrix2fv(getLocation(name), 1, GL_FALSE, value.raw()); }
+void Shader::set(const char* name, mat3& value) { glUniformMatrix3fv(getLocation(name), 1, GL_FALSE, value.raw()); }
+void Shader::set(const char* name, mat4& value) { glUniformMatrix4fv(getLocation(name), 1, GL_FALSE, value.raw()); }

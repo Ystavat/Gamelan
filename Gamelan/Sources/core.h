@@ -11,9 +11,8 @@
 #include <thread>
 #include "config.h"
 #include "Logger/logger.h"
+#include "Math/math.h"
 
-
-#define COMMA ,
 
 #define S_BIND(x) std::bind(&x, std::placeholders::_1)
 #define M_BIND(x) std::bind(&x, this, std::placeholders::_1)

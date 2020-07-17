@@ -4,7 +4,6 @@
 #include "core.h"
 #include <GL/glew.h>
 #include "Utils/file.h"
-#include "Math/vector.h"
 
 
 class Shader {
@@ -29,6 +28,9 @@ class Shader {
 		void set(const char* name, vec2& value);
 		void set(const char* name, vec3& value);
 		void set(const char* name, vec4& value);
+		void set(const char* name, mat2& value);
+		void set(const char* name, mat3& value);
+		void set(const char* name, mat4& value);
 };
 
 

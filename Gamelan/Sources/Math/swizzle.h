@@ -1,8 +1,6 @@
 #ifndef __SWIZZLE_H__
 #define __SWIZZLE_H__
 
-#include "core.h"
-
 
 template<typename T>
 struct Vector2;
@@ -11,6 +9,8 @@ struct Vector3;
 template<typename T>
 struct Vector4;
 
+
+#define COMMA ,
 
 #define SWIZZLE_COUNT(_1, _2, _3, _4, COUNT, ...) SWIZZLE_ ## COUNT
 #define SWIZZLE(...) SWIZZLE_COUNT(__VA_ARGS__, 4, 3, 2) (__VA_ARGS__)

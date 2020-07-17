@@ -1,5 +1,5 @@
-#ifndef __MATH_H__
-#define __MATH_H__
+#ifndef __VECTOR_H__
+#define __VECTOR_H__
 
 #include "swizzle.h"
 
@@ -59,31 +59,41 @@
 			DO_IF_4 ## n (COMMA static_cast<T>(scalar) op v.w)); }
 
 #define ALL_SELF_OP_VEC(n)\
-	SELF_OP_VEC(n, +=);\
-	SELF_OP_VEC(n, -=);\
-	SELF_OP_VEC(n, *=);\
-	SELF_OP_VEC(n, /=);\
-	SELF_OP_VEC(n, %=);\
-	SELF_OP_VEC(n, &=);\
-	SELF_OP_VEC(n, |=);\
-	SELF_OP_VEC(n, ^=);\
-	SELF_OP_VEC(n, <<=);\
-	SELF_OP_VEC(n, >>=)
+	SELF_OP_VEC(n, +=)\
+	SELF_OP_VEC(n, -=)\
+	SELF_OP_VEC(n, *=)\
+	SELF_OP_VEC(n, /=)\
+	SELF_OP_VEC(n, %=)\
+	SELF_OP_VEC(n, &=)\
+	SELF_OP_VEC(n, |=)\
+	SELF_OP_VEC(n, ^=)\
+	SELF_OP_VEC(n, <<=)\
+	SELF_OP_VEC(n, >>=)\
+	inline T& operator[](const size_t i) { return elements[i]; }\
+	inline const T& operator[](const size_t i) const { return elements[i]; }\
+	T* raw() { return elements; }
 #define ALL_UNARY_OP_VEC(n)\
-	UNARY_OP_VEC(n, +);\
-	UNARY_OP_VEC(n, -);\
+	UNARY_OP_VEC(n, +)\
+	UNARY_OP_VEC(n, -)\
 	UNARY_OP_VEC(n, ~)
 #define ALL_BINARY_OP_VEC(n)\
-	BINARY_OP_VEC(n, +);\
-	BINARY_OP_VEC(n, -);\
-	BINARY_OP_VEC(n, *);\
-	BINARY_OP_VEC(n, /);\
-	BINARY_OP_VEC(n, %);\
-	BINARY_OP_VEC(n, &);\
-	BINARY_OP_VEC(n, |);\
-	BINARY_OP_VEC(n, ^);\
-	BINARY_OP_VEC(n, <<);\
-	BINARY_OP_VEC(n, >>)
+	BINARY_OP_VEC(n, +)\
+	BINARY_OP_VEC(n, -)\
+	BINARY_OP_VEC(n, *)\
+	BINARY_OP_VEC(n, /)\
+	BINARY_OP_VEC(n, %)\
+	BINARY_OP_VEC(n, &)\
+	BINARY_OP_VEC(n, |)\
+	BINARY_OP_VEC(n, ^)\
+	BINARY_OP_VEC(n, <<)\
+	BINARY_OP_VEC(n, >>)\
+	template<typename T>\
+	std::ostream& operator<<(std::ostream& out, Vector ## n<T>& v) { return out\
+	<< "{ " << v.x\
+	<< ", " << v.y\
+	DO_IF_3 ## n (<< ", " << v.z)\
+	DO_IF_4 ## n (<< ", " << v.w)\
+	<< " }"; }
 
 
 template<typename T>
@@ -92,6 +102,7 @@ struct Vector2 {
 		struct { T x, y; };
 		struct { T s, t; };
 		struct { T u, v; };
+		T elements[2];
 	};
 
 	Vector2(T scalar): x(scalar), y(scalar) {}
@@ -102,8 +113,6 @@ struct Vector2 {
 };
 ALL_UNARY_OP_VEC(2);
 ALL_BINARY_OP_VEC(2);
-template<typename T>
-std::ostream& operator<<(std::ostream& out, Vector2<T>& v) { return out << "{ " << v.x << ", " << v.y << " }"; }
 
 
 template<typename T>
@@ -112,6 +121,7 @@ struct Vector3 {
 		struct { T x, y, z; };
 		struct { T s, t, p; };
 		struct { T r, g, b; };
+		T elements[3];
 	};
 
 	Vector3(T scalar): x(scalar), y(scalar), z(scalar) {}
@@ -122,8 +132,7 @@ struct Vector3 {
 };
 ALL_UNARY_OP_VEC(3);
 ALL_BINARY_OP_VEC(3);
-template<typename T>
-std::ostream& operator<<(std::ostream& out, Vector3<T>& v) { return out << "{ " << v.x << ", " << v.y << ", " << v.z << " }"; }
+
 
 template<typename T>
 struct Vector4 {
@@ -131,6 +140,7 @@ struct Vector4 {
 		struct { T x, y, z, w; };
 		struct { T s, t, p, q; };
 		struct { T r, g, b, a; };
+		T elements[4];
 	};
 
 	Vector4(T scalar): x(scalar), y(scalar), z(scalar), w(scalar) {}
@@ -141,8 +151,7 @@ struct Vector4 {
 };
 ALL_UNARY_OP_VEC(4);
 ALL_BINARY_OP_VEC(4);
-template<typename T>
-std::ostream& operator<<(std::ostream& out, Vector4<T>& v) { return out << "{ " << v.x << ", " << v.y << ", " << v.z << ", " << v.w << " }"; }
+
 
 typedef Vector2<float> vec2;
 typedef Vector3<float> vec3;
