@@ -5,10 +5,7 @@
 #include "core.h"
 #include "Application/application.h"
 #include "Application/entryPoint.h"
-#include "Renderer/OpenGL/layout.h"
-#include "Renderer/OpenGL/renderingContext.h"
-#include "Renderer/OpenGL/shader.h"
-#include "Renderer/OpenGL/texture.h"
+#include "Renderer/OpenGL/opengl.h"
 
 
 #endif

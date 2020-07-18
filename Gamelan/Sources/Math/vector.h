@@ -59,6 +59,7 @@
 			DO_IF_4 ## n (COMMA static_cast<T>(scalar) op v.w)); }
 
 #define ALL_SELF_OP_VEC(n)\
+	Vector ## n (): Vector ## n (0) {}\
 	SELF_OP_VEC(n, +=)\
 	SELF_OP_VEC(n, -=)\
 	SELF_OP_VEC(n, *=)\
@@ -156,6 +157,10 @@ ALL_BINARY_OP_VEC(4);
 typedef Vector2<float> vec2;
 typedef Vector3<float> vec3;
 typedef Vector4<float> vec4;
+
+typedef Vector2<int> int2;
+typedef Vector3<int> int3;
+typedef Vector4<int> int4;
 
 
 #endif

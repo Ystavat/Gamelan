@@ -10,6 +10,7 @@ srcdir = Sources/
 bindir = bin/
 srcCor = $(cordir)$(srcdir)
 srcApp = $(appdir)$(srcdir)
+main   = $(appdir)$(srcdir)sandbox.cpp
 
 SRC  := $(wildcard $(srcCor)*.cpp) $(wildcard $(srcCor)*/*.cpp) $(wildcard $(srcCor)*/*/*.cpp)\
 	$(wildcard $(srcApp)*.cpp) $(wildcard $(srcApp)*/*.cpp) $(wildcard $(srcApp)*/*/*.cpp)
@@ -33,7 +34,7 @@ $(bindir)%.o : $(srcApp)%.cpp $(srcApp)%.h $(SUP)
 prompt = "Compile _ as main?"
 $(bindir)%.o : $(srcApp)%.cpp $(SUP)
 	#$(prompt:_=$(word 1, $^))
-	read REPLY
+	#read REPLY
 	mkdir -p $(dir $@)
 	$(GOO) $(word 1, $^) -o $@
 	
@@ -41,3 +42,8 @@ $(bindir)%.o : $(srcApp)%.cpp $(SUP)
 clean :
 	$(RM) $(bindir)*
 	$(RM) $(PROG)
+
+.PHONY : re
+re :
+	touch $(main)
+	make
