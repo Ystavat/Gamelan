@@ -5,7 +5,7 @@
 #include "core.h"
 #include "Application/application.h"
 #include "Application/entryPoint.h"
-#include "Renderer/OpenGL/opengl.h"
+#include "Renderer/renderer.h"
 
 
 #endif

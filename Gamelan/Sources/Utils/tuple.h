@@ -12,10 +12,8 @@ struct Base {
 
 template<size_t i, typename... Elements>
 struct _Tuple;
-
 template<size_t i>
 struct _Tuple<i> {};
-
 template<size_t i, typename Head, typename... Tail>
 struct _Tuple<i, Head, Tail...>: public _Tuple<i-1, Tail...>, private Base<i, Head> {
 	_Tuple() {}

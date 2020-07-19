@@ -5,6 +5,7 @@ class Sandbox : public Application {
 	private:
 		Texture* texture;
 		Shader* shader;
+		OrthographicCamera camera = {-8/6.,8/6.,-1.,1};
 
 	public:
 		Sandbox(): Application(800, 600, "Sandbox") {
@@ -14,6 +15,8 @@ class Sandbox : public Application {
 
 			texture = new Texture("../Assets/Images/img.png", 4);
 			texture->print();
+
+			CORE_DEBUG(camera.getProjection());
 
 			VertexBuffer<lyt::Float2, lyt::Float2> vbo(4);
 			//vbo[0].set({-1.0, -1.0}, {0.0, 0.0});
@@ -42,6 +45,7 @@ class Sandbox : public Application {
 			vbo.applyLayout();
 
 			shader = Shader::fromFile("../Assets/Shaders/texVS.shader", "../Assets/Shaders/texFS.shader");
+			//shader = Shader::fromFile("../Assets/Shaders/basicVS.shader", "../Assets/Shaders/basicFS.shader");
 		}
 		~Sandbox() {
 			delete texture;
@@ -56,6 +60,7 @@ class Sandbox : public Application {
 			PROFILE_FUNCTION();
 
 			shader->bind();
+			shader->set("u_proj", camera.getProjection());
 			RenderingContext::drawIndexed(6);
 		}
 };
