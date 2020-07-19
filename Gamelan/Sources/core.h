@@ -14,6 +14,8 @@
 #include "Math/math.h"
 
 
+#define TPL_FOREACH(X) [](...){}(((X),0)...)
+
 #define S_BIND(x) std::bind(&x, std::placeholders::_1)
 #define M_BIND(x) std::bind(&x, this, std::placeholders::_1)
 #define BIND(x, y) std::bind(&x, &y, std::placeholders::_1)

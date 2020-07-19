@@ -16,14 +16,14 @@ class Sandbox : public Application {
 			texture->print();
 
 			VertexBuffer<lyt::Float2, lyt::Float2> vbo(4);
-			get<1>(vbo[0]) = {-1.0, -1.0};
-			get<0>(vbo[0]) = { 0.0,  0.0};
-			get<1>(vbo[1]) = { 1.0, -1.0};
-			get<0>(vbo[1]) = { 1.0,  0.0};
-			get<1>(vbo[2]) = { 1.0,  1.0};
+			//vbo[0].set({-1.0, -1.0}, {0.0, 0.0});
+			vbo[0].set(-1.0, -1.0, 0.0, 0.0);
+			get<0>(vbo[1]) = { 1.0, -1.0};
+			get<1>(vbo[1]) = { 1.0,  0.0};
 			get<0>(vbo[2]) = { 1.0,  1.0};
-			get<1>(vbo[3]) = {-1.0,  1.0};
-			get<0>(vbo[3]) = { 0.0,  1.0};
+			get<1>(vbo[2]) = { 1.0,  1.0};
+			get<0>(vbo[3]) = {-1.0,  1.0};
+			get<1>(vbo[3]) = { 0.0,  1.0};
 			
 			uint32_t indices[6] = { 0, 1, 2, 2, 3, 0 };
 

@@ -4,7 +4,7 @@
 #include "core.h"
 #include <GL/glew.h>
 #include "Utils/tuple.h"
-#include "tplVB.h"
+//#include "tplVB.h"
 
 
 #define SHADER_TYPE_DEF(ALIAS, COUNT, BASE, TYPE, GLTYPE)\
@@ -32,20 +32,51 @@ namespace lyt {
 }
 
 template<size_t... T>
-struct calc{};
+struct calc;
 template<size_t H>
 struct calc<H>{ static constexpr size_t get() { return H; } };
 template<size_t H, size_t... T>
 struct calc<H, T...>{ static constexpr size_t get() { return H+calc<T...>::get(); } };
 
-template<class H, class...  T>
+template<typename T, size_t n, class C>
+struct unwrap;
+template<typename... T, size_t n, class C0, class... Ct>
+struct unwrap<types<T...>, n, types<C0, Ct...>>: public unwrap<types<T..., typename C0::base>, n-1, types<C0, Ct...>> {};
+template<typename... T, class C0, class C1, class... Ct>
+struct unwrap<types<T...>, 0, types<C0, C1, Ct...>>: public unwrap<types<T...>, C1::count, types<C1, Ct...>> {};
+template<typename... T, class C0>
+struct unwrap<types<T...>, 0, types<C0>> { typedef types<T...> type; };
+
+
+template<typename T, typename R>
+union mixHolder;
+template<typename... T, typename... R>
+union mixHolder<types<T...>, types<R...>> {
+	typedef Tuple<T...> t1;
+	typedef Tuple<R...> t2;
+	t1 _1;
+	t2 _2;
+	operator t1() { return _1; }
+	operator t2() { return _2; }
+	void set(T... args) { _1.set(args...); }
+	void set(R... args) { _2.set(args...); }
+	mixHolder() {}
+};
+
+template<size_t i, typename Head, typename... Tail, typename _>
+Head& get(mixHolder<types<Head, Tail...>, _>& mx) { return get<i>(mx._1); }
+template<size_t i, typename Head, typename... Tail, typename _>
+Head& get_(mixHolder<_, types<Head, Tail...>>& mx) { return get<i>(mx._2); }
+
+template<class...  T>
 class VertexBuffer {
 	private:
-		typedef Tuple<typename H::type, typename T::type...> type;
-		static constexpr size_t s_sizes[sizeof...(T)+1] = { H::size, T::size... };
-		static constexpr size_t s_counts[sizeof...(T)+1] = { H::count, T::count... };
-		static constexpr size_t s_types[sizeof...(T)+1] = { H::GLtype, T::GLtype... };
-		static constexpr size_t s_stride = calc<H::size, T::size...>::get();
+		typedef mixHolder<types<typename T::type...>, typename unwrap<types<>, 0, types<bool, T...>>::type> type;
+		//typedef Tuple<typename T::type...> type;
+		static constexpr size_t s_sizes[sizeof...(T)] = { T::size... };
+		static constexpr size_t s_counts[sizeof...(T)] = { T::count... };
+		static constexpr size_t s_types[sizeof...(T)] = { T::GLtype... };
+		static constexpr size_t s_stride = calc<T::size...>::get();
 		uint32_t m_id;
 		type* m_data;
 		size_t m_length;
@@ -54,7 +85,9 @@ class VertexBuffer {
 		VertexBuffer(size_t n): m_data(new type[n]), m_length(n) { glGenBuffers(1, &m_id); }
 		~VertexBuffer() { delete[] m_data; }
 
+		//typename type::t1& operator[](size_t i) { return m_data[i]; }
 		type& operator[](size_t i) { return m_data[i]; }
+		//typename type::t2& operator[](size_t i) { return m_data[i]; }
 
 		constexpr size_t getStride() { return s_stride; }
 		void* getRaw() { return m_data; }
@@ -69,17 +102,16 @@ class VertexBuffer {
 				stride += s_sizes[i];
 			}
 		}
-		
-		vertCons<tmp<>, tmp<>, H::count, tmp<H, T...>> cons;
 };
 
-template<class H, class...  T>
-constexpr size_t VertexBuffer<H, T...>::s_sizes[];
-template<class H, class...  T>
-constexpr size_t VertexBuffer<H, T...>::s_counts[];
-template<class H, class...  T>
-constexpr size_t VertexBuffer<H, T...>::s_types[];
-template<class H, class...  T>
-constexpr size_t VertexBuffer<H, T...>::s_stride;
+template<class...  T>
+constexpr size_t VertexBuffer<T...>::s_sizes[];
+template<class...  T>
+constexpr size_t VertexBuffer<T...>::s_counts[];
+template<class...  T>
+constexpr size_t VertexBuffer<T...>::s_types[];
+template<class...  T>
+constexpr size_t VertexBuffer<T...>::s_stride;
+
 
 #endif

@@ -7,7 +7,7 @@
 #define COLOR(x) "\033[38;5;" << x << "m"
 #define BOLD "\033[1m"
 #define END "\033[0m"
-
+#define TPL_FOREACH(X) [](...){}(((X),0)...)
 
 std::ostream& operator<<(std::ostream& out, uint8_t uint);
 
@@ -50,8 +50,7 @@ class Logger {
 		void log(LogLevel level, const char* file, int line, T&&... param) {
 			if (level >= m_level) {
 				header(level, file, line);
-				int a[] = {(std::cerr << param, 0)...};
-				if (a) {}
+				TPL_FOREACH( std::cerr << param );
 				std::cout << END;
 				std::cerr << std::endl;
 			}
