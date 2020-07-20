@@ -9,13 +9,18 @@ class Application {
 	private:
 		Window* m_window;
 
+		void coreDispatcher(Event& event);
+
+	protected:
+		bool m_running;
+
 	public:
 		Application(uint32_t width, uint32_t height, const char* title);
 		virtual ~Application();
 
 		void Run();
 
-		virtual void onUpdate() = 0;
+		virtual void onUpdate(float deltaTime) = 0;
 		virtual void onEvent(Event& event) = 0;
 };
 

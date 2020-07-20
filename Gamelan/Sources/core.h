@@ -74,7 +74,7 @@
 	#include "Utils/benchmark.h"
 	#define PROFILE_SESSION(...)  Benchmark::Writer::get().beginSession(__VA_ARGS__)
 	#define PROFILE_SCOPE(name) Benchmark::Timer timer##__LINE__(name)
-	#define PROFILE_FUNCTION()  PROFILE_SCOPE(__PRETTY_FUNCTION__)
+	#define PROFILE_FUNCTION()  PROFILE_SCOPE(__FUNCTION__)
 #else
 	#define PROFILE_SESSION(...)
 	#define PROFILE_SCOPE(name)

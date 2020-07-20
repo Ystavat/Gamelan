@@ -3,8 +3,9 @@
 
 #include "core.h"
 #include "Renderer/OpenGL/renderingContext.h"
+#include "Event/event.h"
 #include "Event/eventCallback.h"
-
+#include "Event/eventPolling.h"
 
 class Window {
 	private:

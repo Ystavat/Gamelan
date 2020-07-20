@@ -7,17 +7,17 @@
 
 
 class Inputs {
-private:
-	static GLFWwindow* s_window;
+	private:
+		static GLFWwindow* s_window;
 
-public:
-	static void setWindow(GLFWwindow* window);
+	public:
+		static void setWindow(GLFWwindow* window);
 
-	static bool isKeyPressed(int keyCode);
-	static bool isButtonPressed(int button);
+		static bool isKeyPressed(int keyCode);
+		static bool isButtonPressed(int button);
 
-	static float getMouseX();
-	static float getMouseY();
+		static float getMouseX();
+		static float getMouseY();
 };
 
 
