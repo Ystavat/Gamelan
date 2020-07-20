@@ -3,3 +3,5 @@
 #include "texture.h"
 #include "vertexBuffer.h"
 #include "renderingContext.h"
+#include "vertexArray.h"
+#include "indexBuffer.h"

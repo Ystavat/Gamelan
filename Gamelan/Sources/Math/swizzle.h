@@ -12,8 +12,8 @@ struct Vector4;
 
 #define COMMA ,
 
-#define SWIZZLE_COUNT(_1, _2, _3, _4, COUNT, ...) SWIZZLE_ ## COUNT
-#define SWIZZLE(...) SWIZZLE_COUNT(__VA_ARGS__, 4, 3, 2) (__VA_ARGS__)
+//#define SWIZZLE_COUNT(_1, _2, _3, _4, COUNT, ...) SWIZZLE_ ## COUNT
+//#define SWIZZLE(...) SWIZZLE_COUNT(__VA_ARGS__, 4, 3, 2, 1) (__VA_ARGS__)
 #define SWIZZLE_2(E0, E1) Vector2<T> E0 ## E1() { return Vector2<T>(E0, E1); }
 #define SWIZZLE_3(E0, E1, E2) Vector3<T> E0 ## E1 ## E2() { return Vector3<T>(E0, E1, E2); }
 #define SWIZZLE_4(E0, E1, E2, E3) Vector4<T> E0 ## E1 ## E2 ## E3() { return Vector4<T>(E0, E1, E2, E3); }
@@ -38,15 +38,15 @@ struct Vector4;
 	DO_MUL_ ## m (MUL_2(n, m, x), MUL_2(n, m, y), MUL_2(n, m, z), MUL_2(n, m, w))\
 )
 #define MUL_2(n, m, E0) BRANCH_IF_ ## n ## 2 (\
-	DO_MUL_ ## m (SWIZZLE(E0, x), SWIZZLE(E0, y), SWIZZLE(E0, z), SWIZZLE(E0, w)),\
+	DO_MUL_ ## m (SWIZZLE_2(E0, x), SWIZZLE_2(E0, y), SWIZZLE_2(E0, z), SWIZZLE_2(E0, w)),\
 	DO_MUL_ ## m (MUL_3(n, m, E0, x), MUL_3(n, m, E0, y), MUL_3(n, m, E0, z), MUL_3(n, m, E0, w))\
 )
 #define MUL_3(n, m, E0, E1) BRANCH_IF_ ## n ## 3 (\
-	DO_MUL_ ## m (SWIZZLE(E0, E1, x), SWIZZLE(E0, E1, y), SWIZZLE(E0, E1, z), SWIZZLE(E0, E1, w)),\
+	DO_MUL_ ## m (SWIZZLE_3(E0, E1, x), SWIZZLE_3(E0, E1, y), SWIZZLE_3(E0, E1, z), SWIZZLE_3(E0, E1, w)),\
 	DO_MUL_ ## m (MUL_4(n, m, E0, E1, x), MUL_4(n, m, E0, E1, y), MUL_4(n, m, E0, E1, z), MUL_4(n, m, E0, E1, w))\
 )
 #define MUL_4(n, m, E0, E1, E2) BRANCH_IF_ ## n ## 4 (\
-	DO_MUL_ ## m (SWIZZLE(E0, E1, E2, x), SWIZZLE(E0, E1, E2, y), SWIZZLE(E0, E1, E2, z), SWIZZLE(E0, E1, E2, w)),\
+	DO_MUL_ ## m (SWIZZLE_4(E0, E1, E2, x), SWIZZLE_4(E0, E1, E2, y), SWIZZLE_4(E0, E1, E2, z), SWIZZLE_4(E0, E1, E2, w)),\
 	DO_MUL_ ## m (MUL_5(n, m, E0, E1, E2, x), MUL_5(n, m, E0, E1, E2, y), MUL_5(n, m, E0, E1, E2, z), MUL_5(n, m, E0, E1, E2, w))\
 )
 
