@@ -9,6 +9,9 @@
 #include "Renderer/OpenGL/renderingContext.h"
 #include "Renderer/OpenGL/shader.h"
 #include "Renderer/OpenGL/texture.h"
+#include "Renderer\OpenGL\vertexArray.h"
+#include "Renderer\OpenGL\indexBuffer.h"
+
 
 
 #endif
