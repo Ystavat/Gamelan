@@ -44,7 +44,7 @@ bool Window::shouldClose() {
 	return glfwWindowShouldClose(m_window);
 }
 
-void Window::setEventCallback(EventCallback callback) { m_hook.callback = callback; }
+void Window::setEventCallback(EventCallback callback) { m_hook.callback = callback; } // Override the default hook by our hook
 uint32_t Window::getWidth() { return m_width; }
 uint32_t Window::getHeight() { return m_height; }
 bool Window::isVsync() { return m_vsync; }

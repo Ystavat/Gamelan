@@ -3,8 +3,8 @@
 
 Application::Application(uint32_t width, uint32_t height, const char* title): m_running(true) {
 	CORE_WARN("Application started");
-	m_window = new Window(width, height, title);
-	m_window->setEventCallback(M_BIND(Application::coreDispatcher));
+	m_window = new Window(width, height, title); // Set the width, height and title of the window
+	m_window->setEventCallback(M_BIND(Application::coreDispatcher)); // Override the default hook by our hook
 }
 
 Application::~Application() {

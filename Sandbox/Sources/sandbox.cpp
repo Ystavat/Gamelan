@@ -3,9 +3,11 @@
 
 class Sandbox : public Application {
 	private:
-		Texture* texture;
+		Texture* texture; 
 		Shader* shader;
 		OrthographicCamera camera = {-8/6.,8/6.,-1.,1};
+		IndexBuffer* ibo;
+		VertexArray* vao;
 
 	public:
 		Sandbox(): Application(800, 600, "Sandbox") {
@@ -30,19 +32,24 @@ class Sandbox : public Application {
 			
 			uint32_t indices[6] = { 0, 1, 2, 2, 3, 0 };
 
-			uint32_t vao;
+			/*uint32_t vao;
 			glGenVertexArrays(1, &vao);
-			glBindVertexArray(vao);
+			glBindVertexArray(vao);*/
+			vao = new VertexArray();
 
 			vbo.bind();
 			vbo.update();
 
-			uint32_t ibo;
+			/*uint32_t ibo;
 			glGenBuffers(1, &ibo);
 			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
 			glBufferData(GL_ELEMENT_ARRAY_BUFFER, 6*sizeof(uint32_t), indices, GL_STATIC_DRAW);
 			
 			vbo.applyLayout();
+			glBufferData(GL_ELEMENT_ARRAY_BUFFER, 6*sizeof(uint32_t), indices, GL_STATIC_DRAW);*/
+			ibo = new IndexBuffer(indices, 6);
+
+			layout.bind();
 
 			shader = Shader::fromFile("../Assets/Shaders/texVS.shader", "../Assets/Shaders/texFS.shader");
 			//shader = Shader::fromFile("../Assets/Shaders/basicVS.shader", "../Assets/Shaders/basicFS.shader");
@@ -50,6 +57,8 @@ class Sandbox : public Application {
 		~Sandbox() {
 			delete texture;
 			delete shader;
+			delete ibo;
+			delete vao;
 		}
 
 		virtual void onEvent(Event& event) override {

@@ -5,10 +5,10 @@
 #include <GLFW/glfw3.h>
 #include "event.h"
 
-#define GET_HOOK GLFWHook& hook = *(GLFWHook*)glfwGetWindowUserPointer(window)
+#define GET_HOOK GLFWHook& hook = *(GLFWHook*)glfwGetWindowUserPointer(window) // Defines our hook
 
 
-using EventCallback = std::function<void(Event&)>;
+using EventCallback = std::function<void(Event&)>; // Pointer to a function
 struct GLFWHook {
 	EventCallback callback = [](Event& event) { CORE_TRACE("Default ", event.getType()); };
 };

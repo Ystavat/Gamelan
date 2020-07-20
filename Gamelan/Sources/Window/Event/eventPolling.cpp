@@ -23,3 +23,4 @@ float Inputs::getMouseY() {
 	glfwGetCursorPos(s_window, &x, &y);
 	return (float)y;
 }
+
