@@ -1,18 +1,21 @@
-#pragma once
+#ifndef __VERTEX_ARRAY_H__
+#define __VERTEX_ARRAY_H__
 
-#include "GL\glew.h"
+#include "GL/glew.h"
 #include "core.h"
 
-class VertexArray
-{
-private:
-	uint32_t m_rendererID;
-public:
 
-	VertexArray();
-	~VertexArray();
+class VertexArray {
+	private:
+		uint32_t m_id;
 
-	void bind() const;
-	void unbind() const;
+	public:
+		VertexArray();
+		~VertexArray();
 
+		void bind() const;
+		void unbind() const;
 };
+
+
+#endif

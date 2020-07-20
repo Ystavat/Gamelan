@@ -2,16 +2,16 @@
 
 
 VertexArray::VertexArray() {
-	glGenVertexArrays(1, &m_rendererID);
-	glBindVertexArray(m_rendererID);
+	glGenVertexArrays(1, &m_id);
+	glBindVertexArray(m_id);
 }
 
 VertexArray::~VertexArray() {
-	glDeleteBuffers(1, &m_rendererID);
+	glDeleteVertexArrays(1, &m_id);
 }
 
 void VertexArray::bind() const {
-	glBindVertexArray(m_rendererID);
+	glBindVertexArray(m_id);
 }
 
 void VertexArray::unbind() const {

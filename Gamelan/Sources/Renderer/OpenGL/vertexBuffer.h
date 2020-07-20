@@ -83,16 +83,18 @@ class VertexBuffer {
 
 	public:
 		VertexBuffer(size_t n): m_data(new type[n]), m_length(n) { glGenBuffers(1, &m_id); }
-		~VertexBuffer() { delete[] m_data; }
+		~VertexBuffer() {
+			delete[] m_data;
+			glDeleteBuffers(1, &m_id);
+		}
 
-		//typename type::t1& operator[](size_t i) { return m_data[i]; }
 		type& operator[](size_t i) { return m_data[i]; }
-		//typename type::t2& operator[](size_t i) { return m_data[i]; }
 
 		constexpr size_t getStride() { return s_stride; }
 		void* getRaw() { return m_data; }
 
 		void bind() { glBindBuffer(GL_ARRAY_BUFFER, m_id); }
+		void unbind() { glBindBuffer(GL_ARRAY_BUFFER, 0); }
 		void update() { glBufferData(GL_ARRAY_BUFFER, m_length*s_stride, m_data, GL_STATIC_DRAW); }
 		void applyLayout() {
 			size_t stride = 0;
