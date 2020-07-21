@@ -39,7 +39,9 @@ struct LinkedReverseIterator: public LinkedIterator<T> {
 template<typename T>
 class LinkedList {
 	protected:
-		uint32_t m_count;
+		typedef LinkedIterator<T> iterator;
+		typedef LinkedReverseIterator<T> reverseIterator;
+		size_t m_count;
 		ListElement<T>* tail;
 		ListElement<T>* head;
 		ListElement<T>* current;
@@ -163,16 +165,15 @@ class LinkedList {
 		inline ListElement<T>* getHead() { return head; }
 		inline void resetBegin() { current = tail; }
 		inline void resetEnd() { current = head; }
-		inline uint32_t getCount() { return m_count; }
+		inline size_t getCount() { return m_count; }
 
-		inline LinkedIterator<T> begin() { return LinkedIterator<T>(tail); }
-		inline LinkedIterator<T> end() { return LinkedIterator<T>(head->next); }
-		inline LinkedReverseIterator<T> rbegin() { return LinkedReverseIterator<T>(head); }
-		inline LinkedReverseIterator<T> rend() { return LinkedReverseIterator<T>(tail->previous); }
+		inline iterator begin() { return iterator(tail); }
+		inline iterator end() { return iterator(head->next); }
+		inline reverseIterator rbegin() { return reverseIterator(head); }
+		inline reverseIterator rend() { return reverseIterator(tail->previous); }
 
 		inline Reverse<LinkedList> reverse() { return Reverse<LinkedList>(*this); }
 };
-
 
 template<typename T>
 std::ostream& operator<<(std::ostream& out, LinkedList<T>& list) {

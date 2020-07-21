@@ -4,7 +4,10 @@
 #include "core.h"
 #include "Window/Event/event.h"
 
+
+class LayerStack;
 class Layer {
+	friend LayerStack;
 	protected:
 		virtual void onAttach() {}
 		virtual void onDettach() {}
@@ -16,8 +19,19 @@ class Layer {
 		~Layer() {}
 };
 
-class LayerStack: LinkedList<Layer> {
+class LayerStack: DynamicArray<Layer, 1> {
+	public:
+		LayerStack() {}
+		~LayerStack() {}
 
+		void insert(Layer& layer, size_t i);
+		void insertBegin(Layer& layer);
+		void insertEnd(Layer& layer);
+		Layer popBegin();
+		Layer popEnd();
+
+		void onUpdate(float deltaTime);
+		void onEvent(Event& event);
 };
 
 
