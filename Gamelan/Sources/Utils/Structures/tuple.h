@@ -1,4 +1,7 @@
 #ifndef __TUPLE_H__
+#define __TUPLE_H__
+
+#include "basicTpl.h"
 
 
 template<size_t i, typename T>
@@ -23,16 +26,6 @@ struct _Tuple<i, Head, Tail...>: public _Tuple<i-1, Tail...>, private Base<i, He
 
 template<size_t i, typename Head, typename... Tail>
 Head& get(_Tuple<i, Head, Tail...>& t) { return t.get(); }
-
-
-template<typename... n>
-struct types{};
-template<size_t... n>
-struct seq {};
-template<size_t n0, size_t ...nt>
-struct gen_index: public gen_index<n0-1, n0-1, nt...> {};
-template<size_t... n>
-struct gen_index<0, n...>{ typedef seq<n...> type; };
 
 
 template<typename... T>

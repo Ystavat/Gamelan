@@ -3,8 +3,6 @@
 
 #include "core.h"
 #include <GL/glew.h>
-#include "Utils/tuple.h"
-//#include "tplVB.h"
 
 
 #define SHADER_TYPE_DEF(ALIAS, COUNT, BASE, TYPE, GLTYPE)\
@@ -72,30 +70,39 @@ template<class...  T>
 class VertexBuffer {
 	private:
 		typedef mixHolder<types<typename T::type...>, typename unwrap<types<>, 0, types<bool, T...>>::type> type;
-		//typedef Tuple<typename T::type...> type;
+		typedef BasicIterator<type> iterator;
+		typedef BasicReverseIterator<type> reverseIterator;
 		static constexpr size_t s_sizes[sizeof...(T)] = { T::size... };
 		static constexpr size_t s_counts[sizeof...(T)] = { T::count... };
 		static constexpr size_t s_types[sizeof...(T)] = { T::GLtype... };
 		static constexpr size_t s_stride = calc<T::size...>::get();
 		uint32_t m_id;
 		type* m_data;
-		size_t m_length;
+		size_t m_count;
 
 	public:
-		VertexBuffer(size_t n): m_data(new type[n]), m_length(n) { glGenBuffers(1, &m_id); }
+		VertexBuffer(size_t n): m_data(new type[n]), m_count(n) { glGenBuffers(1, &m_id); }
 		~VertexBuffer() {
 			delete[] m_data;
 			glDeleteBuffers(1, &m_id);
 		}
 
-		type& operator[](size_t i) { return m_data[i]; }
-
 		constexpr size_t getStride() { return s_stride; }
 		void* getRaw() { return m_data; }
+		void* getCount() { return m_count; }
+
+		type& operator[](size_t i) { return m_data[i]; }
+		const type& operator[](size_t i) const { return m_data[i]; }
+
+		iterator begin() { return iterator(m_data); }
+		iterator end() { return iterator(m_data+m_count); }
+		reverseIterator rbegin() { return reverseIterator(m_data+m_count-1); }
+		reverseIterator rend() { return reverseIterator(m_data-1); }
+		Reverse<VertexBuffer> reverse() { return Reverse<VertexBuffer>(*this); }
 
 		void bind() { glBindBuffer(GL_ARRAY_BUFFER, m_id); }
 		void unbind() { glBindBuffer(GL_ARRAY_BUFFER, 0); }
-		void update() { glBufferData(GL_ARRAY_BUFFER, m_length*s_stride, m_data, GL_STATIC_DRAW); }
+		void update() { glBufferData(GL_ARRAY_BUFFER, m_count*s_stride, m_data, GL_STATIC_DRAW); }
 		void applyLayout() {
 			size_t stride = 0;
 			for (size_t i = 0 ; i < sizeof...(T)+1 ; i++) {

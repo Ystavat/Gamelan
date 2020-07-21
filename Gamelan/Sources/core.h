@@ -12,6 +12,7 @@
 #include "config.h"
 #include "Logger/logger.h"
 #include "Math/math.h"
+#include "Utils/Structures/structures.h"
 
 
 #define TPL_FOREACH(X) [](...){}(((X),0)...)

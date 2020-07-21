@@ -1,5 +1,5 @@
 LIBS = -lGL -lglfw3 -lGLEW -lX11 -lpthread -ldl -lz
-GPP = g++ -std=c++11 -Wall -I $(srcCor) -I $(srcApp)
+GPP = g++ -std=c++14 -Wall -I $(srcCor) -I $(srcApp)
 GOO = $(GPP) -c
 
 RM = rm -irf
