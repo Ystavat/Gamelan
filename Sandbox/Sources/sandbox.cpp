@@ -1,5 +1,6 @@
 #include "gamelan.h"
 
+
 class Sandbox : public Application {
 	private:
 		OrthographicCamera camera = { -8/6., 8/6., -1., 1, 0.5 };

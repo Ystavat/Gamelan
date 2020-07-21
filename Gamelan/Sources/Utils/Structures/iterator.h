@@ -4,7 +4,7 @@
 
 template<typename T>
 struct BasicIterator {
-	private:
+	protected:
 		T* m_ptr;
 	
 	public:
@@ -21,20 +21,12 @@ struct BasicIterator {
 
 
 template<typename T>
-struct BasicReverseIterator {
-	private:
-		T* m_ptr;
-	
+struct BasicReverseIterator: public BasicIterator<T> {
 	public:
-		explicit BasicReverseIterator(T* ptr): m_ptr(ptr) {}
+		explicit BasicReverseIterator(T* ptr): BasicIterator<T>(ptr) {}
 
-		T* getPtr() { return m_ptr; }
-
-		bool operator==(BasicReverseIterator& other) { return m_ptr==other.getPtr(); }
-		bool operator!=(BasicReverseIterator& other) { return m_ptr!=other.getPtr(); }
-		T* operator++() { return m_ptr--; }
-		T* operator--() { return m_ptr++; }
-		T& operator*() { return *m_ptr; }
+		T* operator++() { return this->m_ptr--; }
+		T* operator--() { return this->m_ptr++; }
 };
 
 
