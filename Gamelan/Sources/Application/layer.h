@@ -16,19 +16,19 @@ class Layer {
 
 	public:
 		Layer() {}
-		~Layer() {}
+		virtual ~Layer() {}
 };
 
-class LayerStack: DynamicArray<Layer, 1> {
+class LayerStack: DynamicArray<Layer*, 1> {
 	public:
 		LayerStack() {}
-		~LayerStack() {}
+		~LayerStack();
 
-		void insert(Layer& layer, size_t i);
-		void insertBegin(Layer& layer);
-		void insertEnd(Layer& layer);
-		Layer popBegin();
-		Layer popEnd();
+		void insert(Layer* layer, size_t i);
+		void insertBegin(Layer* layer);
+		void insertEnd(Layer* layer);
+		void pop(Layer* layer);
+		void pop(size_t i);
 
 		void onUpdate(float deltaTime);
 		void onEvent(Event& event);

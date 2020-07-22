@@ -20,6 +20,15 @@ class Array {
 
 		T& operator[](size_t i) { return m_data[i]; }
 		const T& operator[](size_t i) const { return m_data[i]; }
+		size_t find(T&& e) { return find(e); }
+		size_t find(T& e) {
+			for (size_t i = 0 ; i < n ; i++) {
+				if (m_data[i] == e) {
+					return i;
+				}
+			}
+			return n;
+		}
 
 		iterator begin() { return iterator(m_data); }
 		iterator end() { return iterator(m_data+n); }
@@ -61,6 +70,15 @@ class DynamicArray {
 
 		T& operator[](size_t i) { return m_data[i]; }
 		const T& operator[](size_t i) const { return m_data[i]; }
+		size_t find(T&& e) { return find(e); }
+		size_t find(T& e) {
+			for (size_t i = 0 ; i < m_count ; i++) {
+				if (m_data[i] == e) {
+					return i;
+				}
+			}
+			return m_count;
+		}
 
 		void insert(T&& e, size_t i) { insert(e, i); }
 		void insert(T& e, size_t i) {

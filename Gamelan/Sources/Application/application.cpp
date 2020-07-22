@@ -4,7 +4,7 @@
 Application::Application(uint32_t width, uint32_t height, const char* title): m_running(true) {
 	CORE_WARN("Application started");
 	m_window = new Window(width, height, title); // Set the width, height and title of the window
-	m_window->setEventCallback(M_BIND(Application::coreDispatcher)); // Override the default hook by our hook
+	m_window->setEventCallback(M_BIND(Application::onEvent)); // Override the default hook by our hook
 }
 
 Application::~Application() {
@@ -12,12 +12,10 @@ Application::~Application() {
 	CORE_WARN("Application stopped");
 }
 
-void Application::coreDispatcher(Event& event) {
+void Application::onEvent(Event& event) {
 	dispatch<WindowCloseEvent>(event, [this](WindowCloseEvent& e) { m_running = false; return true; });
 	dispatch<WindowResizeEvent>(event, [](WindowResizeEvent& e) { RenderingContext::setViewport(e.getWidth(), e.getHeight()); return true; });
-	if (!event.m_handled) {
-		onEvent(event);
-	}
+	m_layerStack.onEvent(event);
 }
 
 void Application::Run() {
@@ -30,7 +28,7 @@ void Application::Run() {
 		lastFrameTime = timeNow;
 
 		m_window->clear();
-		onUpdate(deltaTime);
+		m_layerStack.onUpdate(deltaTime);
 		m_window->onUpdate();
 	}
 }
