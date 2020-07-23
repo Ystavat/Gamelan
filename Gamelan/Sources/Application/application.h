@@ -9,6 +9,7 @@
 class Application {
 	private:
 		Window* m_window;
+		static Application* s_instance;
 
 	protected:
 		bool m_running;
@@ -20,6 +21,8 @@ class Application {
 
 		void Run();
 		void onEvent(Event& event);
+
+		static Application& get();
 };
 
 

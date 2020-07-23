@@ -1,7 +1,11 @@
 #include "application.h"
 
 
+Application* Application::s_instance = nullptr;
+
 Application::Application(uint32_t width, uint32_t height, const char* title): m_running(true) {
+	CORE_ASSERT_NOT(s_instance, "Only a single application can be instanciated");
+	s_instance = this;
 	CORE_WARN("Application started");
 	m_window = new Window(width, height, title); // Set the width, height and title of the window
 	m_window->setEventCallback(M_BIND(Application::onEvent)); // Override the default hook by our hook
@@ -32,3 +36,5 @@ void Application::Run() {
 		m_window->onUpdate();
 	}
 }
+
+Application& Application::get() { return *s_instance; }
