@@ -105,7 +105,7 @@ class VertexBuffer {
 		void update() { glBufferData(GL_ARRAY_BUFFER, m_count*s_stride, m_data, GL_STATIC_DRAW); }
 		void applyLayout() {
 			size_t stride = 0;
-			for (size_t i = 0 ; i < sizeof...(T)+1 ; i++) {
+			for (size_t i = 0 ; i < sizeof...(T) ; i++) {
 				glEnableVertexAttribArray(i);
 				glVertexAttribPointer(i, s_counts[i], s_types[i], GL_FALSE, s_stride, (const void*)(uintptr_t)stride);
 				stride += s_sizes[i];

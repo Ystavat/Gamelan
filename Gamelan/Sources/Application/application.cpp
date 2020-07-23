@@ -28,7 +28,7 @@ void Application::Run() {
 	float deltaTime;
 	while (m_running) {
 		timeNow = std::chrono::steady_clock::now();
-		deltaTime = std::chrono::duration_cast<std::chrono::microseconds>(timeNow - lastFrameTime).count()/1000000.0;
+		deltaTime = std::chrono::duration_cast<std::chrono::microseconds>(timeNow - lastFrameTime).count()/1000000.0f;
 		lastFrameTime = timeNow;
 
 		m_window->clear();

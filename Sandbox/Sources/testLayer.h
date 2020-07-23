@@ -3,7 +3,7 @@
 
 class TestLayer : public Layer {
 	private:
-		OrthographicCamera camera = { -8/6., 8/6., -1., 1, 0.5 };
+		OrthographicCamera camera = { -8/6.f, 8/6.f, -1.f, 1.f, 0.5f };
 		Texture* texture;
 		Shader* shader;
 		VertexArray* vao_p;
@@ -13,7 +13,7 @@ class TestLayer : public Layer {
 	public:
 		TestLayer(float a) {
 			PROFILE_FUNCTION();
-			camera = { -8/6., 8/6., -1., 1, a };
+			camera = { -8/6.f, 8/6.f, -1.f, 1.f, a };
 		}
 		virtual void onAttach() {
 			PROFILE_FUNCTION();

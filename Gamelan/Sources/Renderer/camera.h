@@ -17,7 +17,7 @@ class OrthographicCamera {
 		float m_right;
 		float m_bottom;
 		float m_top;
-		float angle;
+		float m_angle;
 		float m_near;
 		float m_far;
 		mat4 m_projection;

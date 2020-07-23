@@ -1,8 +1,8 @@
 #include "camera.h"
 
 
-OrthographicCamera::OrthographicCamera(float left, float right, float bottom, float top, float angle, float near, float far):
-	m_left(left), m_right(right), m_bottom(bottom), m_near(near), m_far(far),
+OrthographicCamera::OrthographicCamera(float left, float right, float bottom, float top, float angle, float near, float far) :
+	m_left(left), m_right(right), m_bottom(bottom), m_top(top), m_angle(angle), m_near(near), m_far(far),
 	m_projection(C*X, -S*Y, 0, A*C-B*S,
 		     S*X,  C*Y, 0, A*S+B*C,
 		     0, 0, -2/(far-near), -(far+near)/(far-near),
