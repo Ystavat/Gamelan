@@ -19,7 +19,8 @@ class Application {
 		Application(uint32_t width, uint32_t height, const char* title);
 		virtual ~Application();
 
-		void Run();
+		void run();
+		void shutdown();
 		void onEvent(Event& event);
 
 		static Application& get();

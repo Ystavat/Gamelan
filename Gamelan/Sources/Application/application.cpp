@@ -17,22 +17,26 @@ Application::~Application() {
 }
 
 void Application::onEvent(Event& event) {
-	dispatch<WindowCloseEvent>(event, [this](WindowCloseEvent& e) { m_running = false; return true; });
-	dispatch<WindowResizeEvent>(event, [](WindowResizeEvent& e) { RenderingContext::setViewport(e.getWidth(), e.getHeight()); return true; });
+	dispatch<WindowCloseEvent>(event, [this](WindowCloseEvent& e) { shutdown(); return true; });
+	dispatch<WindowResizeEvent>(event, [](WindowResizeEvent& e) { RenderingContext::setViewport(e.getWidth(), e.getHeight()); return false; });
 	m_layerStack.onEvent(event);
 }
 
-void Application::Run() {
+void Application::shutdown() {
+	m_running = false;
+}
+
+void Application::run() {
 	std::chrono::time_point<std::chrono::steady_clock> lastFrameTime = std::chrono::steady_clock::now();
 	std::chrono::time_point<std::chrono::steady_clock> timeNow;
-	float deltaTime;
+	float dt;
 	while (m_running) {
 		timeNow = std::chrono::steady_clock::now();
-		deltaTime = std::chrono::duration_cast<std::chrono::microseconds>(timeNow - lastFrameTime).count()/1000000.0f;
+		dt = std::chrono::duration_cast<std::chrono::microseconds>(timeNow - lastFrameTime).count()/1000000.0f;
 		lastFrameTime = timeNow;
 
 		m_window->clear();
-		m_layerStack.onUpdate(deltaTime);
+		m_layerStack.onUpdate(dt);
 		m_window->onUpdate();
 	}
 }

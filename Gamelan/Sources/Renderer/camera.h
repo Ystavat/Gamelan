@@ -3,29 +3,39 @@
 
 #include "core.h"
 
-#define X 2/(right-left)
-#define Y 2/(top-bottom)
-#define A -(right+left)/(right-left)
-#define B -(top+bottom)/(top-bottom)
-#define C cos(angle)
-#define S sin(angle)
+#define C cos(m_rotation)
+#define S sin(m_rotation)
+#define X m_position.x
+#define Y m_position.y
 
 
 class OrthographicCamera {
 	private:
-		float m_left;
-		float m_right;
-		float m_bottom;
-		float m_top;
-		float m_angle;
-		float m_near;
-		float m_far;
 		mat4 m_projection;
+		mat4 m_view;
+		mat4 m_viewProjection;
+
+		vec3 m_position = { 0.0f };
+		float width = 1.0f;
+		float height = 1.0f;
+		float m_rotation = 0.0f;
+
+		void recalculate();
 
 	public:
-		OrthographicCamera(float left, float right, float bottom, float top, float angle=0, float near=-1, float far=1);
+		OrthographicCamera(float aspectRatio): OrthographicCamera(aspectRatio, 1) {};
+		OrthographicCamera(float width, float height);
+		void setProjection(float width, float height);
 
-		mat4& getProjection();
+		const vec3& getPosition() const { return m_position; }
+		void setPosition(const vec3& position) { m_position = position; recalculate(); }
+
+		float getRotation() const { return m_rotation; }
+		void setRotation(float rotation) { m_rotation = rotation; recalculate(); }
+
+		const mat4& getProjection() { return m_projection; }
+		const mat4& getView() { return m_view; }
+		const mat4& getViewProjection() { return m_viewProjection; }
 };
 
 

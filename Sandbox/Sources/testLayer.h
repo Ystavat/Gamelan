@@ -3,7 +3,7 @@
 
 class TestLayer : public Layer {
 	private:
-		OrthographicCamera camera = { -8/6.f, 8/6.f, -1.f, 1.f, 0.5f };
+		OrthographicCameraController camera = { 8/6.f };
 		Texture* texture;
 		Shader* shader;
 		VertexArray* vao_p;
@@ -13,7 +13,9 @@ class TestLayer : public Layer {
 	public:
 		TestLayer(float a) {
 			PROFILE_FUNCTION();
-			camera = { -8/6.f, 8/6.f, -1.f, 1.f, a };
+			camera.getCamera().setRotation(a);
+			camera.getCamera().setPosition({1, 0, 0});
+			CORE_WARN(a);
 		}
 		virtual void onAttach() {
 			PROFILE_FUNCTION();
@@ -54,15 +56,21 @@ class TestLayer : public Layer {
 		}
 
 		virtual void onEvent(Event& event) override {
-			APP_TRACE(event.getType());
+			//dispatch<KeyPressEvent>(event, [](KeyPressEvent& e) { APP_ERROR(e.getKeyCode()); return true; });
+			camera.onEvent(event);
 		}
 
-		virtual void onUpdate(float deltaTime) override {
+		virtual void onUpdate(float dt) override {
 			PROFILE_FUNCTION();
+			
+			camera.onUpdate(dt);
+			if (Inputs::isKeyPressed(256)) {
+				Application::get().shutdown();
+			}
 
 			vao_p->bind();
 			shader->bind();
-			shader->set("u_proj", camera.getProjection());
+			shader->set("u_proj", camera.getCamera().getViewProjection());
 			RenderingContext::drawIndexed(6);
 		}
 };

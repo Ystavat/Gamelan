@@ -89,7 +89,7 @@
 	BINARY_OP_VEC(n, <<)\
 	BINARY_OP_VEC(n, >>)\
 	template<typename T>\
-	std::ostream& operator<<(std::ostream& out, Vector ## n<T>& v) { return out\
+	std::ostream& operator<<(std::ostream& out, const Vector ## n<T>& v) { return out\
 	<< "{ " << v.x\
 	<< ", " << v.y\
 	DO_IF_3 ## n (<< ", " << v.z)\

@@ -47,7 +47,7 @@ class Logger {
 		void header(LogLevel level, const char* file, int line);
 
 		template<typename... T>
-		void log(LogLevel level, const char* file, int line, T&&... param) {
+		void log(LogLevel level, const char* file, int line, const T&... param) {
 			if (level >= m_level) {
 				header(level, file, line);
 				TPL_FOREACH( std::cerr << param );

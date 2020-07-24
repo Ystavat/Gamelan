@@ -12,7 +12,7 @@ int main(int argc, char** argv) {
 		PROFILE_SCOPE("Engine runtime");
 
 		Application* app = createApplication();
-		app->Run();
+		app->run();
 		delete(app);
 	}
 

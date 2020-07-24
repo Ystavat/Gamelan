@@ -25,12 +25,12 @@ class Shader {
 		void set(const char* name, int value);
 		void set(const char* name, int* values, uint32_t count);
 		void set(const char* name, float value);
-		void set(const char* name, vec2& value);
-		void set(const char* name, vec3& value);
-		void set(const char* name, vec4& value);
-		void set(const char* name, mat2& value);
-		void set(const char* name, mat3& value);
-		void set(const char* name, mat4& value);
+		void set(const char* name, const vec2& value);
+		void set(const char* name, const vec3& value);
+		void set(const char* name, const vec4& value);
+		void set(const char* name, const mat2& value);
+		void set(const char* name, const mat3& value);
+		void set(const char* name, const mat4& value);
 };
 
 

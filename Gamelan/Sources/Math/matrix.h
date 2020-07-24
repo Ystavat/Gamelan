@@ -64,7 +64,7 @@
 	SELF_OP_MAT(n, >>=)\
 	inline vec& operator[](const size_t i) { return lines[i]; }\
 	inline const vec& operator[](const size_t i) const { return lines[i]; }\
-	inline T* raw() { return (T*)lines; }
+	inline T* raw() const { return (T*)lines; }
 #define ALL_UNARY_OP_MAT(n)\
 	UNARY_OP_MAT(n, +)\
 	UNARY_OP_MAT(n, -)\
@@ -81,11 +81,23 @@
 	BINARY_OP_MAT(n, <<)\
 	BINARY_OP_MAT(n, >>)\
 	template<typename T>\
-	std::ostream& operator<<(std::ostream& out, Matrix ## n<T>& m) { return out\
+	std::ostream& operator<<(std::ostream& out, const Matrix ## n<T>& m) { return out\
 	<< m[0] << std::endl\
 	<< m[1] << std::endl\
 	DO_IF_3 ## n (<< m[2] << std::endl)\
-	DO_IF_4 ## n (<< m[3] << std::endl); }
+	DO_IF_4 ## n (<< m[3] << std::endl); }\
+	template<typename T>\
+	Matrix ## n<T> dot(const Matrix ## n<T>& m1, const Matrix ## n<T>& m2) {\
+		Matrix ## n<T> res(0);\
+		for (int i = 0 ; i < n ; i++) {\
+			for (int j = 0 ; j < n ; j++) {\
+				for (int k = 0 ; k < n ; k++) {\
+					res[i][j] += m1[i][k]*m2[k][j];\
+				}\
+			}\
+		}\
+		return res;\
+	}
 
 
 template<typename T>

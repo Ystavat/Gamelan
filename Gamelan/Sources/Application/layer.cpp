@@ -26,9 +26,9 @@ void LayerStack::pop(size_t i) {
 	DynamicArray::remove(i);
 }
 
-void LayerStack::onUpdate(float deltaTime) {
+void LayerStack::onUpdate(float dt) {
 	for (Layer* layer : reverse()) {
-		layer->onUpdate(deltaTime);
+		layer->onUpdate(dt);
 	}
 }
 void LayerStack::onEvent(Event& event) {

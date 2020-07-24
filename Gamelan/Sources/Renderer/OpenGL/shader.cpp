@@ -52,9 +52,9 @@ GLint Shader::getLocation(const char* name) { return glGetUniformLocation(m_id, 
 void Shader::set(const char* name, int value) { glUniform1i(getLocation(name), value); }
 void Shader::set(const char* name, int* value, uint32_t count) { glUniform1iv(getLocation(name), count, value); }
 void Shader::set(const char* name, float value) { glUniform1f(getLocation(name), value); }
-void Shader::set(const char* name, vec2& value) { glUniform2f(getLocation(name), value.x, value.y); }
-void Shader::set(const char* name, vec3& value) { glUniform3f(getLocation(name), value.x, value.y, value.z); }
-void Shader::set(const char* name, vec4& value) { glUniform4f(getLocation(name), value.x, value.y, value.z, value.w); }
-void Shader::set(const char* name, mat2& value) { glUniformMatrix2fv(getLocation(name), 1, GL_FALSE, value.raw()); }
-void Shader::set(const char* name, mat3& value) { glUniformMatrix3fv(getLocation(name), 1, GL_FALSE, value.raw()); }
-void Shader::set(const char* name, mat4& value) { glUniformMatrix4fv(getLocation(name), 1, GL_FALSE, value.raw()); }
+void Shader::set(const char* name, const vec2& value) { glUniform2f(getLocation(name), value.x, value.y); }
+void Shader::set(const char* name, const vec3& value) { glUniform3f(getLocation(name), value.x, value.y, value.z); }
+void Shader::set(const char* name, const vec4& value) { glUniform4f(getLocation(name), value.x, value.y, value.z, value.w); }
+void Shader::set(const char* name, const mat2& value) { glUniformMatrix2fv(getLocation(name), 1, GL_FALSE, value.raw()); }
+void Shader::set(const char* name, const mat3& value) { glUniformMatrix3fv(getLocation(name), 1, GL_FALSE, value.raw()); }
+void Shader::set(const char* name, const mat4& value) { glUniformMatrix4fv(getLocation(name), 1, GL_FALSE, value.raw()); }

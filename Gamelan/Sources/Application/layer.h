@@ -11,7 +11,7 @@ class Layer {
 	protected:
 		virtual void onAttach() {}
 		virtual void onDettach() {}
-		virtual void onUpdate(float deltaTime) {}
+		virtual void onUpdate(float dt) {}
 		virtual void onEvent(Event& event) {}
 
 	public:
@@ -30,7 +30,7 @@ class LayerStack: DynamicArray<Layer*, 1> {
 		void pop(Layer* layer);
 		void pop(size_t i);
 
-		void onUpdate(float deltaTime);
+		void onUpdate(float dt);
 		void onEvent(Event& event);
 };
 
