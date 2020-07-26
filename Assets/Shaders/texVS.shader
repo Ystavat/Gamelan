@@ -8,5 +8,5 @@ uniform mat4 u_proj;
 
 void main() {
 	v_texCoord = vec2(a_texCoord.x, 1-a_texCoord.y);
-	gl_Position = u_proj*vec4(a_position, 0, 1);
+	gl_Position = vec4(a_position, 0, 1)*u_proj;
 }

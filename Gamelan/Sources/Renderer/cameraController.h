@@ -10,7 +10,7 @@
 class OrthographicCameraController {
 	private:
 		float m_aspectRatio;
-		float m_zoomLevel;
+		float m_zoomLevel = 1.f;
 		OrthographicCamera m_camera;
 		vec3 m_position = { 0.f };
 		float m_rotation = 0.f;

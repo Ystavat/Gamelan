@@ -8,13 +8,15 @@ void OrthographicCameraController::onUpdate(float dt) {
 }
 
 bool OrthographicCameraController::onWindowResized(WindowResizeEvent& event) {
-	APP_TRACE("resized");
-	return true;
+	m_aspectRatio = (float)event.getWidth() / event.getHeight();
+	m_camera.setProjection(m_aspectRatio*m_zoomLevel, m_zoomLevel);
+	return false;
 }
 
 bool OrthographicCameraController::onMouseScrolled(MouseScrollEvent& event) {
-	APP_TRACE("scrolled");
-	return true;
+	m_zoomLevel = std::max(0.25f, m_zoomLevel-event.getDy()*0.25f);
+	m_camera.setProjection(m_aspectRatio*m_zoomLevel, m_zoomLevel);
+	return false;
 }
 
 void OrthographicCameraController::onEvent(Event& event) {
