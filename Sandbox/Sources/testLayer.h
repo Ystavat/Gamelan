@@ -11,12 +11,7 @@ class TestLayer : public Layer {
 		IndexBuffer* ibo_p;
 
 	public:
-		TestLayer(float a) {
-			PROFILE_FUNCTION();
-			camera.getCamera().setRotation(a);
-			camera.getCamera().setPosition({1, 0, 0});
-			CORE_WARN(a);
-		}
+		TestLayer(float a) {}
 		virtual void onAttach() {
 			PROFILE_FUNCTION();
 

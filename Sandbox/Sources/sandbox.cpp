@@ -7,7 +7,6 @@ class Sandbox : public Application {
 		Sandbox(): Application(800, 600, "Sandbox") {
 			PROFILE_FUNCTION();
 
-			m_layerStack.insertBegin(new TestLayer(0));
 			m_layerStack.insertBegin(new TestLayer(0.5));
 		}
 };

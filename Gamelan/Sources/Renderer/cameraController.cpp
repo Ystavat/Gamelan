@@ -2,8 +2,37 @@
 
 
 void OrthographicCameraController::onUpdate(float dt) {
+	bool translated = false;
+	bool rotated = false;
+	if (Inputs::isKeyPressed(262)) {
+		m_position.x -= m_translationSpeed*dt;
+		translated = true;
+	}
+	if (Inputs::isKeyPressed(263)) {
+		m_position.x += m_translationSpeed*dt;
+		translated = true;
+	}
+	if (Inputs::isKeyPressed(264)) {
+		m_position.y += m_translationSpeed*dt;
+		translated = true;
+	}
+	if (Inputs::isKeyPressed(265)) {
+		m_position.y -= m_translationSpeed*dt;
+		translated = true;
+	}
 	if (Inputs::isKeyPressed(65)) {
-		APP_ERROR("camera");
+		m_rotation -= m_rotationSpeed*dt;
+		rotated = true;
+	}
+	if (Inputs::isKeyPressed(68)) {
+		m_rotation += m_rotationSpeed*dt;
+		rotated = true;
+	}
+	if (translated) {
+		m_camera.setPosition(m_position);
+	}
+	if (rotated) {
+		m_camera.setRotation(m_rotation);
 	}
 }
 

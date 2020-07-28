@@ -1,6 +1,7 @@
 #ifndef __CORE_H__
 #define __CORE_H__
 
+
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -9,13 +10,14 @@
 #include <initializer_list>
 #include <functional>
 #include <thread>
+
+
+#define TPL_FOREACH(X) [](...){}(((X),0)...)
 #include "config.h"
 #include "Logger/logger.h"
 #include "Math/math.h"
 #include "Utils/Structures/structures.h"
 
-
-#define TPL_FOREACH(X) [](...){}(((X),0)...)
 
 #define S_BIND(x) std::bind(&x, std::placeholders::_1)
 #define M_BIND(x) std::bind(&x, this, std::placeholders::_1)

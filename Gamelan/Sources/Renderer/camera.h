@@ -7,6 +7,8 @@
 #define S sin(m_rotation)
 #define X m_position.x
 #define Y m_position.y
+#define W 1/width
+#define H 1/height
 
 
 class OrthographicCamera {
