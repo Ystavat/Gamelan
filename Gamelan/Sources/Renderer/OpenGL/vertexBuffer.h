@@ -72,10 +72,12 @@ class VertexBuffer {
 		typedef mixHolder<types<typename T::type...>, typename unwrap<types<>, 0, types<bool, T...>>::type> type;
 		typedef BasicIterator<type> iterator;
 		typedef BasicReverseIterator<type> reverseIterator;
+
 		static constexpr size_t s_sizes[sizeof...(T)] = { T::size... };
 		static constexpr size_t s_counts[sizeof...(T)] = { T::count... };
 		static constexpr size_t s_types[sizeof...(T)] = { T::GLtype... };
 		static constexpr size_t s_stride = calc<T::size...>::get();
+
 		uint32_t m_id;
 		type* m_data;
 		size_t m_count;
