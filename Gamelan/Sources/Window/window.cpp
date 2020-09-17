@@ -18,7 +18,6 @@ Window::Window(uint32_t width, uint32_t height, const char* title, bool vsync): 
 	CORE_ASSERT(m_window, "GLFW failed to create a window");
 
 	m_context = new RenderingContext(m_window);
-	RenderingContext::setViewport(m_width, m_height);
 
 	m_hook.width = &m_width;
 	m_hook.height = &m_height;

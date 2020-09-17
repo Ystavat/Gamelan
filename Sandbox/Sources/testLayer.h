@@ -72,6 +72,7 @@ class TestLayer : public Layer {
 
 			fb->bind();
 			RenderingContext::setClearColor(0.0, 1.0, 1.0, 1.0);
+			RenderingContext::clear();
 			vao_p->bind();
 			shader->bind();
 			shader->set("u_proj", camera.getCamera().getViewProjection());
@@ -81,10 +82,10 @@ class TestLayer : public Layer {
 
 			Application::get().autoViewPort();
 			RenderingContext::setClearColor(0.0, 1.0, 0.0, 1.0);
+			RenderingContext::clear();
 			shaderPass->bind();
 			shaderPass->set("u_texture", 0);
 			fb->pass();
-			//RenderingContext::drawIndexed(6);
 		}
 };
 

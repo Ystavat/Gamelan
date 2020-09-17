@@ -43,7 +43,7 @@ void Application::run() {
 		dt = std::chrono::duration_cast<std::chrono::microseconds>(timeNow - lastFrameTime).count()/1000000.0f;
 		lastFrameTime = timeNow;
 
-		m_window->clear();
+		//m_window->clear();
 		m_layerStack.onUpdate(dt);
 		m_window->onUpdate();
 	}
