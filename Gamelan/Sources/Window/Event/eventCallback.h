@@ -11,6 +11,8 @@
 using EventCallback = std::function<void(Event&)>; // Pointer to a function
 struct GLFWHook {
 	EventCallback callback = [](Event& event) { CORE_TRACE("Default ", event.getType()); };
+	uint32_t* width;
+	uint32_t* height;
 };
 
 void setWindowEventsCallback(GLFWwindow* window);

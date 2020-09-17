@@ -9,6 +9,8 @@ void setWindowEventsCallback(GLFWwindow* window) {
 	});
 	glfwSetWindowSizeCallback(window, [](GLFWwindow* window, int width, int height) {
 		GET_HOOK;
+		*hook.width = width;
+		*hook.height = height;
 		WindowResizeEvent event(width, height);
 		hook.callback(event);
 	});

@@ -4,6 +4,7 @@
 #include "core.h"
 #include "layer.h"
 #include "Window/window.h"
+#include "Renderer/OpenGL/frameBuffer.h"
 
 
 class Application {
@@ -22,6 +23,7 @@ class Application {
 		void run();
 		void shutdown();
 		void onEvent(Event& event);
+		void autoViewPort();
 
 		static Application& get();
 };

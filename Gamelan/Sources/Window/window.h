@@ -24,6 +24,7 @@ class Window {
 
 		void clear();
 		void onUpdate();
+		void autoViewPort();
 		bool shouldClose();
 
 		void setEventCallback(EventCallback callback);

@@ -20,6 +20,8 @@ Window::Window(uint32_t width, uint32_t height, const char* title, bool vsync): 
 	m_context = new RenderingContext(m_window);
 	RenderingContext::setViewport(m_width, m_height);
 
+	m_hook.width = &m_width;
+	m_hook.height = &m_height;
 	glfwSetWindowUserPointer(m_window, &m_hook);
 	setWindowEventsCallback(m_window);
 	Inputs::setWindow(m_window);
@@ -38,6 +40,10 @@ void Window::onUpdate() {
 	PROFILE_FUNCTION();
 	m_context->SwapBuffers();
 	glfwPollEvents();
+}
+
+void Window::autoViewPort() {
+	RenderingContext::setViewport(m_width, m_height);
 }
 
 bool Window::shouldClose() {

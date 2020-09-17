@@ -5,28 +5,32 @@
 #include <GL/glew.h>
 
 
-#define SHADER_TYPE_DEF(ALIAS, COUNT, BASE, TYPE, GLTYPE)\
+#define SHADER_TYPE_PROT(ALIAS, COUNT, BASE, TYPE, GLTYPE)\
 struct ALIAS {\
 	typedef TYPE type;\
 	typedef BASE base;\
 	static constexpr GLenum GLtype = GLTYPE;\
 	static constexpr size_t count = COUNT;\
 	static constexpr size_t size = sizeof(type);\
-}; constexpr GLenum ALIAS::GLtype; constexpr size_t ALIAS::count; constexpr size_t ALIAS::size;
+};
+#define SHADER_TYPE_IMPL(ALIAS)\
+	constexpr GLenum ALIAS::GLtype;\
+	constexpr size_t ALIAS::count;\
+	constexpr size_t ALIAS::size;
 
 namespace lyt {
-	SHADER_TYPE_DEF(Float, 1, float, float, GL_FLOAT);
-	SHADER_TYPE_DEF(Float2, 2, float, vec2, GL_FLOAT);
-	SHADER_TYPE_DEF(Float3, 3, float, vec2, GL_FLOAT);
-	SHADER_TYPE_DEF(Float4, 4, float, vec4, GL_FLOAT);
-	SHADER_TYPE_DEF(Int, 1, int, int, GL_INT);
-	SHADER_TYPE_DEF(Int2, 2, int, int2, GL_INT);
-	SHADER_TYPE_DEF(Int3, 3, int, int3, GL_INT);
-	SHADER_TYPE_DEF(Int4, 4, int, int4, GL_INT);
-	SHADER_TYPE_DEF(Mat2, 2*2, float, mat2, GL_FLOAT);
-	SHADER_TYPE_DEF(Mat3, 3*3, float, mat3, GL_FLOAT);
-	SHADER_TYPE_DEF(Mat4, 4*4, float, mat4, GL_FLOAT);
-	SHADER_TYPE_DEF(Bool, 1, bool, bool, GL_BOOL);
+	SHADER_TYPE_PROT(Float, 1, float, float, GL_FLOAT);
+	SHADER_TYPE_PROT(Float2, 2, float, vec2, GL_FLOAT);
+	SHADER_TYPE_PROT(Float3, 3, float, vec2, GL_FLOAT);
+	SHADER_TYPE_PROT(Float4, 4, float, vec4, GL_FLOAT);
+	SHADER_TYPE_PROT(Int, 1, int, int, GL_INT);
+	SHADER_TYPE_PROT(Int2, 2, int, int2, GL_INT);
+	SHADER_TYPE_PROT(Int3, 3, int, int3, GL_INT);
+	SHADER_TYPE_PROT(Int4, 4, int, int4, GL_INT);
+	SHADER_TYPE_PROT(Mat2, 2*2, float, mat2, GL_FLOAT);
+	SHADER_TYPE_PROT(Mat3, 3*3, float, mat3, GL_FLOAT);
+	SHADER_TYPE_PROT(Mat4, 4*4, float, mat4, GL_FLOAT);
+	SHADER_TYPE_PROT(Bool, 1, bool, bool, GL_BOOL);
 }
 
 template<size_t... T>

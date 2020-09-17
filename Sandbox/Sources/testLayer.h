@@ -1,3 +1,6 @@
+#ifndef __TESTLAYER_H__
+#define __TESTLAYER_H__
+
 #include "gamelan.h"
 
 
@@ -6,9 +9,11 @@ class TestLayer : public Layer {
 		OrthographicCameraController camera = { 8/6.f };
 		Texture* texture;
 		Shader* shader;
+		Shader* shaderPass;
 		VertexArray* vao_p;
 		VertexBuffer<lyt::Float2, lyt::Float2>* vbo_p;
 		IndexBuffer* ibo_p;
+		FrameBuffer* fb;
 
 	public:
 		TestLayer(float a) {}
@@ -19,6 +24,8 @@ class TestLayer : public Layer {
 
 			texture = new Texture("../Assets/Images/img.png", 4);
 			texture->print();
+			fb = new FrameBuffer(0, 100, 100);
+			texture->bind(1);
 
 			vao_p = new VertexArray();
 
@@ -40,7 +47,7 @@ class TestLayer : public Layer {
 			ibo_p->unbind();
 
 			shader = Shader::fromFile("../Assets/Shaders/texVS.shader", "../Assets/Shaders/texFS.shader");
-			//shader = Shader::fromFile("../Assets/Shaders/basicVS.shader", "../Assets/Shaders/basicFS.shader");
+			shaderPass = Shader::fromFile("../Assets/Shaders/passVS.shader", "../Assets/Shaders/passFS.shader");
 		}
 		virtual ~TestLayer() override {
 			delete texture;
@@ -63,9 +70,23 @@ class TestLayer : public Layer {
 				Application::get().shutdown();
 			}
 
+			fb->bind();
+			RenderingContext::setClearColor(0.0, 1.0, 1.0, 1.0);
 			vao_p->bind();
 			shader->bind();
 			shader->set("u_proj", camera.getCamera().getViewProjection());
+			shader->set("u_texture", 1);
 			RenderingContext::drawIndexed(6);
+			fb->unbind();
+
+			Application::get().autoViewPort();
+			RenderingContext::setClearColor(0.0, 1.0, 0.0, 1.0);
+			shaderPass->bind();
+			shaderPass->set("u_texture", 0);
+			fb->pass();
+			//RenderingContext::drawIndexed(6);
 		}
 };
+
+
+#endif
